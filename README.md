@@ -41,10 +41,18 @@ Inevitably, it'll grow in complexity, contemplating the pages generated through 
 
 In creating the SVG icons for the project I tried to be consistent in following a few guidelines:
 
--   use a fixed viewBox of `0 0 100 100`;
+-   use a fixed viewBox of `0 0 100 100`.
 
--   use `currentColor` instead of hard-coded values;
+-   use `currentColor` instead of hard-coded values.
 
--   use `mask`, `clip-path` and other non-drawing elements instead of overlapping shapes. For the `id` attribute include the name of the icon followed by the type of non-drawing element (as in `css--mask`);
+-   use `mask`, `clip-path` and other non-drawing elements instead of overlapping shapes. For the `id` attribute include the name of the icon followed by the type of non-drawing element (as in `css--mask`).
 
 -   prefer repeating drawing elements instead of defining a shape and adding a `<use>` element. While `<use>` elements make the code more concise, I believe they also confuse the structure of the SVG syntax. Since they rely on an identifier (read: unique value), there is also risk of having conflicting `id`s when a graphic is repeated throughout the page. Non-drawing elements suffer from the same risk, but they are fewer in number and easier to manage.
+
+## Landing Page
+
+> React, React Spring and SVG syntax
+
+The flow of the landing page, from loading screen to navigation, is complicated enough to warrant a series of smaller-size projects:
+
+-   **Loading** describes the basic idea behind the loading component, with a series of CSS animations, a lot of _magic numbers_ and hard-coded values. This is however more of a proof-of-concept to describe how the animation is supposed to look more than the final result. Ultimately, I plan to manage and streamline the flow of the animation using React Spring.

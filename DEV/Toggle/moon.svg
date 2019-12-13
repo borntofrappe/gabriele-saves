@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-50 -50 100 100">
+    <defs>
+        <mask id="moon--mask">
+            <circle fill="hsl(0, 0%, 100%)" r="25" />
+            <circle fill="hsl(0, 0%, 0%)" cx="20" cy="-20" r="25" />
+        </mask>
+    </defs>
+    <g fill="currentColor">
+        <circle mask="url(#moon--mask)" r="25" />
+    </g>
+</svg>

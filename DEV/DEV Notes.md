@@ -6,6 +6,8 @@
 
 -   [Landing Page](#landing-page)
 
+-   [Toggle](#toggle)
+
 ## Routes
 
 The tutorial in [gatsby's own documentation](https://www.gatsbyjs.org/docs/) does a mighty good job in explaining how to set up a blog-like website, but before diving into the blog section, I decided to create my own landing page with a loading screen and a spiffy navigation.
@@ -35,10 +37,12 @@ In creating the SVG icons for the project I tried to be consistent in following 
 
 ## Landing Page
 
-> React, React Spring and SVG syntax
-
 The flow of the landing page, from loading screen to navigation, is complicated enough to warrant a series of smaller-size projects:
 
 -   **Loading** describes the basic idea behind the loading component, with a series of CSS animations, a lot of _magic numbers_ and hard-coded values. This is however more of a proof-of-concept to describe how the animation is supposed to look more than the final result. Ultimately, I plan to manage and streamline the flow of the animation using React Spring.
 
 -   **Navigation** details how the navigation would ultimately look like. In the **Navigation States** folder you find also an idea as to how the SVG graphics should be updated following a `:hover` or `:focus` interaction. The vector graphic has been modified to better handle CSS transition, and this is ultimately the syntax meant for every icon in the navigation component.
+
+## Toggle
+
+This is a component meant to change the appearance of the entire application, by changing the color and background properties on the `body` element and have the change ripple through the project with the CSS's cascade.

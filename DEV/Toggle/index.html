@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <link rel="stylesheet" href="style.css" />
+        <title>Toggle</title>
+    </head>
+
+    <body>
+        <!-- include the svg after an input of type checkbox -->
+        <label>
+            <input type="checkbox" />
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="-60 -60 120 120" width="500" height="500">
+                <defs>
+                    <mask id="toggle--mask">
+                        <circle r="25" fill="hsl(0, 0%, 100%)" />
+                        <g fill="hsl(0, 0%, 0%)">
+                            <g transform="translate(20 -20)">
+                                <!-- scale this group to mask the top right section of the circle -->
+                                <g id="toggle--moon" transform="scale(0)">
+                                    <circle r="25" />
+                                </g>
+                            </g>
+                        </g>
+                    </mask>
+                </defs>
+
+                <g fill="currentColor">
+                    <g mask="url(#toggle--mask)">
+                        <circle r="25" />
+                    </g>
+                    <!-- scale this group to hide the dots drawn around the sun -->
+                    <g id="toggle--sun" transform="scale(1)">
+                        <circle transform="rotate(0) translate(0 42)" r="8" />
+                        <circle transform="rotate(45) translate(0 42)" r="8" />
+                        <circle transform="rotate(90) translate(0 42)" r="8" />
+                        <circle transform="rotate(135) translate(0 42)" r="8" />
+                        <circle transform="rotate(180) translate(0 42)" r="8" />
+                        <circle transform="rotate(225) translate(0 42)" r="8" />
+                        <circle transform="rotate(270) translate(0 42)" r="8" />
+                        <circle transform="rotate(315) translate(0 42)" r="8" />
+                    </g>
+                </g>
+            </svg>
+        </label>
+
+        <script src="https://unpkg.com/animejs@3.1.0/lib/anime.min.js"></script>
+        <script src="script.js"></script>
+    </body>
+</html>

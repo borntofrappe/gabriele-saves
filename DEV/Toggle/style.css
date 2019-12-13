@@ -6,7 +6,7 @@
 /* the colors are set and updated through custom properties */
 :root {
     --color: hsl(0, 0%, 100%);
-    --background: hsl(0, 0%, 5%);
+    --background: hsl(0, 0%, 7%);
 }
 body {
     /* center in the viewport */
@@ -17,7 +17,7 @@ body {
     /* add a transition for the color and background values */
     color: var(--color);
     background: var(--background);
-    transition: color 1s ease-in-out, background 1s ease-in-out;
+    transition: color 0.75s 0.5s ease-in-out, background 0.75s 0.5s ease-in-out;
 }
 
 /* absolute position the input element atop the svg icon */
@@ -33,7 +33,6 @@ label input {
     opacity: 0;
 }
 label svg {
-    opacity: 0.5;
     display: block;
     width: 3.75rem;
     height: 3.75rem;

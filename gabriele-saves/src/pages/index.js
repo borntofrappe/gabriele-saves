@@ -1,19 +1,75 @@
 import React, { useRef } from "react"
 import styled from 'styled-components'
 import { useSpring, useChain, animated } from 'react-spring'
+import Icon from '../components/icons'
 
-const LandingPage = styled(animated.div)`
+const Navigation = styled.nav`
     font-family: monospace;
     min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
     background: hsl(0, 0%, 100%);
-    color: hsl(0, 0%, 0%);
+    color: hsl(0, 0%, 40%);
+`
+
+const Item = styled.a`
+    position: absolute;
+    text-decoration: none;
+    font-family: inherit;
+    width: ${({size}) => `${size}px`};
+    height: ${({size}) => `${size}px`};
+    letter-spacing: -1px;
+    transform: ${({index, length, size}) => `rotate(${360 / length * index}deg) translateY(${size * -1}px) rotate(${360 / length * index * -1}deg)`};
+    color: inherit;
+    &:hover,
+    &:focus {
+        color: ${({color}) => color};
+
+    }
+
+    svg {
+        width: 100%;
+        height: 100%;
+        display: block;
+    }
 `
 
 
 export default () => {
+    const items = [
+        {
+            name: 'blog',
+            href: '#',
+            label: 'Getting started with my own blog',
+            color: 'hsl(0, 80%, 60%)',
+        },
+        {
+            name: 'codepen',
+            href: 'https://codepen.io/borntofrappe',
+            tagLine: 'Coding plenty on codepen',
+            color: 'hsl(0, 0%, 6%)',
+        },
+        {
+            name: 'freecodecamp',
+            href: 'https://www.freecodecamp.org/borntofrappe',
+            tagLine: 'Always learning on freecodecamp',
+            color: 'hsl(120, 50%, 40%)',
+        },
+        {
+            name: 'twitter',
+            href: 'twitter.com/borntofrappe',
+            tagLine: 'Posting almost daily on twitter',
+            color: 'hsl(200, 80%, 60%)',
+        },
+        {
+            name: 'github',
+            href: 'https://github.com/borntofrappe',
+            tagLine: 'Open sourcing it all on github',
+            color: 'hsl(0, 0%, 0%)',
+        },
+    ]
+
     const savingRef = useRef()
     const saving = useSpring({
         delay: 250,
@@ -112,8 +168,26 @@ export default () => {
     useChain([savingRef, pencilRef, savingStroke1Ref, savingStroke2Ref, savingStroke3Ref, savingStroke4Ref, savingCompleteRef, savedRef, savedStrokeRef], [0, 1, 1, 2, 3, 4, whenSaved, whenSaved, whenSaved])
 
     return (
-        <LandingPage>
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="-100 -100 200 200" width="225" height="225">
+        <Navigation>
+            {items.map(({name, href, tagLine, color}, index, {length}) => (
+            <Item key={name} size={135} index={index} length={length} href={href} aria-label={name} color={color}>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="-50 -50 100 100" width="200" height="200">
+                    <g>
+                        <path id="icon-circle" d="M 0 -32 a 32 32 0 0 1 0 64 32 32 0 0 1 0 -64" stroke="currentColor" strokeWidth="6" fill="none" />
+                        <text fontSize="14" dy="-7">
+                            <textPath href="#icon-circle" startOffset="0">
+                                {name}
+                            </textPath>
+                        </text>
+                        <g transform="scale(0.35) translate(-50 -50)">
+                            <Icon icon={name} />
+                        </g>
+                    </g>
+                </svg>
+            </Item>
+            ))}
+
+            <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="-100 -100 200 200" width="200" height="200">
                 <defs>
                     <mask id="saving--mask">
                         <rect fill="hsl(0, 0%, 100%)" x="-50" y="-50" width="100" height="100" />
@@ -150,6 +224,6 @@ export default () => {
                     </g>
                 </animated.g>
             </svg>
-        </LandingPage>
+        </Navigation>
     )
 }

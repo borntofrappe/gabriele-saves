@@ -20,11 +20,26 @@ const LinkTo = styled(Link)`
     color: inherit;
     font-family: inherit;
     letter-spacing: -1px;
+    transition: transform 400ms cubic-bezier(0.175, 0.885, 0.32, 1.5), color 350ms ease-in-out;
+    transform: scale(0.9);
+    outline: none;
 
     &:hover,
     &:focus {
-        outline: none;
         color: ${({color}) => color};
+        transform: scale(1.1);
+    }
+
+    .text {
+        transform: scale(0);
+        transition: transform 400ms cubic-bezier(0.175, 0.885, 0.32, 1.1);
+        transition-delay: 0ms;
+    }
+
+    &:hover .text,
+    &:focus .text {
+        transform: scale(1);
+        transition-delay: 75ms;
     }
 `
 
@@ -33,11 +48,26 @@ const LinkHref = styled.a`
     color: inherit;
     font-family: inherit;
     letter-spacing: -1px;
+    transition: transform 400ms cubic-bezier(0.175, 0.885, 0.32, 1.5), color 350ms ease-in-out;
+    transform: scale(0.9);
+    outline: none;
 
     &:hover,
     &:focus {
-        outline: none;
         color: ${({color}) => color};
+        transform: scale(1.1);
+    }
+
+    .text {
+        transform: scale(0);
+        transition: transform 375ms cubic-bezier(0.175, 0.885, 0.32, 1.1);
+        transition-delay: 0ms;
+    }
+
+    &:hover .text,
+    &:focus .text {
+        transform: scale(1);
+        transition-delay: 75ms;
     }
 `
 
@@ -170,21 +200,21 @@ export default () => {
     })
 
 
-    const trailRef = useRef()
-    const trail = useTrail(links.length, {
+    const iconsRef = useRef()
+    const icon = useTrail(links.length, {
         delay: 500,
         config: {
-            mass: 1.25,
-            tension: 500,
-            friction: 35,
+            mass: 1,
+            tension: 400,
+            friction: 30,
           },
         from: { visibility: 'hidden', transform: 'scale(0)' },
         to: { visibility: 'visible', transform: 'scale(1)' },
-        ref: trailRef
+        ref: iconsRef
      })
 
     const whenSaved = 3 + Math.floor(Math.random() * 2)
-    useChain([savingRef, pencilRef, pencilStroke1Ref, pencilStroke2Ref, pencilStroke3Ref, pencilStroke4Ref, savingCompleteRef, savedRef, savedStrokeRef, trailRef], [0, 1, 1, 2, 3, 4, whenSaved, whenSaved, whenSaved, whenSaved])
+    useChain([savingRef, pencilRef, pencilStroke1Ref, pencilStroke2Ref, pencilStroke3Ref, pencilStroke4Ref, savingCompleteRef, savedRef, savedStrokeRef, iconsRef], [0, 1, 1, 2, 3, 4, whenSaved, whenSaved, whenSaved, whenSaved])
 
     return (
         <Navigation xmlns="http://www.w3.org/2000/svg" viewBox="-225 -225 450 450" width="450" height="450">
@@ -195,6 +225,19 @@ export default () => {
                         <path fill="hsl(0, 0%, 0%)" d="M 12 38 l 16 0 0 -42 -8 -12 -8 12 z m 0 -37 h 16 z m 8 -15 v 2" />
                     </animated.g>
                 </mask>
+                <mask id="icon--mask">
+                    <rect fill="hsl(0, 0%, 100%)" x="-225" y="-225" width="450" height="450" />
+                    <circle fill="hsl(0, 0%, 0%)" r="50" />
+                </mask>
+
+                <mask id="text--mask">
+                    <rect x="-50" y="-50" width="100" height="100" fill="hsl(0, 0%, 100%)" />
+                    <path d="M 0 -32 a 32 32 0 0 1 0 64 32 32 0 0 1 0 -64" stroke="hsl(0, 0%, 0%)" strokeWidth="6" fill="hsl(0, 0%, 0%)" />
+                </mask>
+
+                <path id="icon--path--c" d="M 0 -32 a 32 32 0 0 1 0 64 32 32 0 0 1 0 -64" />
+                <path id="icon--path--cc" d="M 0 -32 a 32 32 0 0 0 0 64 32 32 0 0 0 0 -64" />
+
             </defs>
             <animated.g style={savingComplete}>
                 <animated.g style={saving}>
@@ -225,42 +268,67 @@ export default () => {
             </animated.g>
 
 
-            {trail.map((props, index, {length}) => (
-                <animated.g transform="scale(1)" style={props} key={links[index].name}>
-                    <g transform="translate(-75 -75)">
-                        <g transform={`rotate(${360 / length * index}) translate(0 ${150 * -1}) rotate(${360 / length * index * -1})`}>
-                            {
-                                links[index].to
-                                ?
-                                <LinkTo to={links[index].to} color={links[index].color}>
-                                    <svg viewBox="-50 -50 100 100" width="150" height="150">
-                                        <g>
-                                            <path d="M 0 -32 a 32 32 0 0 1 0 64 32 32 0 0 1 0 -64" stroke="currentColor" strokeWidth="6" fill="none" />
-                                            <g transform="scale(0.35) translate(-50 -50)">
-                                                <Icon icon={links[index].name} />
+            <g mask="url(#icon--mask)">
+                {icon.map((props, index, {length}) => (
+                    <animated.g transform="scale(1)" style={props} key={links[index].name}>
+                            <g transform={`rotate(${360 / length * index}) translate(0 ${140 * -1}) rotate(${360 / length * index * -1})`}>
+                                {
+                                    links[index].to
+                                    ?
+                                    <LinkTo aria-label={links[index].name} to={links[index].to} color={links[index].color}>
+                                        <g transform="translate(-70 -70)">
+                                        <svg viewBox="-50 -50 100 100" width="140" height="140">
+                                            <g>
+                                                <path d="M 0 -32 a 32 32 0 0 1 0 64 32 32 0 0 1 0 -64" stroke="currentColor" strokeWidth="6" fill="none" />
+                                                <g style={{pointerEvents: 'none'}} mask="url(#text--mask)" transform={`rotate(${360 / length * index})`}>
+                                                    <g className="text" textAnchor="middle" fontSize="14">
+                                                        <text dy={(360 / length * index < 90 || 360 / length * index > 270) ? '-7' : '15'}>
+                                                            <textPath href={(360 / length * index < 90 || 360 / length * index > 270) ? '#icon--path--c' : '#icon--path--cc'} startOffset="0%">{links[index].name}</textPath>
+                                                        </text>
+                                                        <text dy={(360 / length * index < 90 || 360 / length * index > 270) ? '-7' : '15'}>
+                                                            <textPath href={(360 / length * index < 90 || 360 / length * index > 270) ? '#icon--path--c' : '#icon--path--cc'} startOffset="100%">{links[index].name}</textPath>
+                                                        </text>
+                                                    </g>
+                                                </g>
+                                                <g transform="scale(0.35) translate(-50 -50)">
+                                                    <Icon icon={links[index].name} />
+                                                </g>
+                                                <path d="M 0 -32 a 32 32 0 0 1 0 64 32 32 0 0 1 0 -64" opacity="0" />
                                             </g>
-                                            <path d="M 0 -32 a 32 32 0 0 1 0 64 32 32 0 0 1 0 -64" opacity="0" />
+                                        </svg>
                                         </g>
-                                    </svg>
-                                </LinkTo>
-                                :
-                                <LinkHref href={links[index].href} color={links[index].color}>
-                                    <svg viewBox="-50 -50 100 100" width="150" height="150">
-                                        <g>
-                                            <path d="M 0 -32 a 32 32 0 0 1 0 64 32 32 0 0 1 0 -64" stroke="currentColor" strokeWidth="6" fill="none" />
-                                            <g transform="scale(0.35) translate(-50 -50)">
-                                                <Icon icon={links[index].name} />
+                                    </LinkTo>
+                                    :
+                                    <LinkHref aria-label={links[index].name} href={links[index].href} color={links[index].color}>
+                                        <g transform="translate(-70 -70)">
+
+                                        <svg viewBox="-50 -50 100 100" width="140" height="140">
+                                            <g>
+                                                <path d="M 0 -32 a 32 32 0 0 1 0 64 32 32 0 0 1 0 -64" stroke="currentColor" strokeWidth="6" fill="none" />
+                                                <g style={{pointerEvents: 'none'}} mask="url(#text--mask)" transform={`rotate(${360 / length * index})`}>
+                                                    <g className="text" textAnchor="middle" fontSize="14">
+                                                        <text dy={(360 / length * index < 90 || 360 / length * index > 270) ? '-7' : '15'}>
+                                                            <textPath href={(360 / length * index < 90 || 360 / length * index > 270) ? '#icon--path--c' : '#icon--path--cc'} startOffset="0%">{links[index].name}</textPath>
+                                                        </text>
+                                                        <text dy={(360 / length * index < 90 || 360 / length * index > 270) ? '-7' : '15'}>
+                                                            <textPath href={(360 / length * index < 90 || 360 / length * index > 270) ? '#icon--path--c' : '#icon--path--cc'} startOffset="100%">{links[index].name}</textPath>
+                                                        </text>
+                                                    </g>
+                                                </g>
+                                                <g transform="scale(0.35) translate(-50 -50)">
+                                                        <Icon icon={links[index].name} />
+                                                </g>
+                                                <path d="M 0 -32 a 32 32 0 0 1 0 64 32 32 0 0 1 0 -64" opacity="0" />
                                             </g>
-                                            <path d="M 0 -32 a 32 32 0 0 1 0 64 32 32 0 0 1 0 -64" opacity="0" />
+                                        </svg>
                                         </g>
-                                    </svg>
-                                </LinkHref>
-                            }
-                        </g>
-                    </g>
-                </animated.g>
-                )
-            )}
+                                    </LinkHref>
+                                }
+                            </g>
+                    </animated.g>
+                    )
+                )}
+            </g>
         </Navigation>
     )
 }

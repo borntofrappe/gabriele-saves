@@ -1,7 +1,7 @@
 import React, { useRef } from "react"
 import styled from 'styled-components'
 import { Link } from 'gatsby'
-import { useSpring, useChain, useTrail, animated } from 'react-spring'
+import { useSpring, useChain, animated } from 'react-spring'
 import Icon from '../components/icons'
 
 const Navigation = styled.svg`
@@ -19,7 +19,7 @@ const LinkTo = styled(Link)`
     text-decoration: none;
     color: inherit;
     font-family: inherit;
-    letter-spacing: -1px;
+    letter-spacing: 1px;
     transition: transform 400ms cubic-bezier(0.175, 0.885, 0.32, 1.5), color 350ms ease-in-out;
     transform: scale(0.9);
     outline: none;
@@ -47,7 +47,7 @@ const LinkHref = styled.a`
     text-decoration: none;
     color: inherit;
     font-family: inherit;
-    letter-spacing: -1px;
+    letter-spacing: 1px;
     transition: transform 400ms cubic-bezier(0.175, 0.885, 0.32, 1.5), color 350ms ease-in-out;
     transform: scale(0.9);
     outline: none;
@@ -82,25 +82,25 @@ export default () => {
         {
             name: 'codepen',
             href: 'https://codepen.io/borntofrappe',
-            tagLine: 'CodePen Profile',
+            label: 'CodePen Profile',
             color: 'hsl(0, 0%, 6%)',
         },
         {
             name: 'freecodecamp',
             href: 'https://www.freecodecamp.org/borntofrappe',
-            tagLine: 'freeCodeCamp Portfolio',
+            label: 'freeCodeCamp Portfolio',
             color: 'hsl(120, 50%, 40%)',
         },
         {
             name: 'twitter',
             href: 'twitter.com/borntofrappe',
-            tagLine: 'Twitter Profile',
+            label: 'Twitter Profile',
             color: 'hsl(200, 80%, 60%)',
         },
         {
             name: 'github',
             href: 'https://github.com/borntofrappe',
-            tagLine: 'Github Repositories',
+            label: 'Github Repositories',
             color: 'hsl(0, 0%, 0%)',
         },
     ]
@@ -201,15 +201,15 @@ export default () => {
 
 
     const iconsRef = useRef()
-    const icon = useTrail(links.length, {
+    const icon = useSpring({
         delay: 500,
+        from: { visibility: 'hidden', transform: 'scale(0)' },
+        to: { visibility: 'visible', transform: 'scale(1)' },
         config: {
             mass: 1,
             tension: 400,
             friction: 30,
           },
-        from: { visibility: 'hidden', transform: 'scale(0)' },
-        to: { visibility: 'visible', transform: 'scale(1)' },
         ref: iconsRef
      })
 
@@ -235,8 +235,8 @@ export default () => {
                     <path d="M 0 -32 a 32 32 0 0 1 0 64 32 32 0 0 1 0 -64" stroke="hsl(0, 0%, 0%)" strokeWidth="6" fill="hsl(0, 0%, 0%)" />
                 </mask>
 
-                <path id="icon--path--c" d="M 0 -32 a 32 32 0 0 1 0 64 32 32 0 0 1 0 -64" />
-                <path id="icon--path--cc" d="M 0 -32 a 32 32 0 0 0 0 64 32 32 0 0 0 0 -64" />
+                <path id="icon--path--c" d="M 0 40 a 40 40 0 0 1 0 -80 40 40 0 0 1 0 80" />
+                <path id="icon--path--cc" d="M 0 47 a 47 47 0 0 0 0 -94 47 47 0 0 0 0 94" />
 
             </defs>
             <animated.g style={savingComplete}>
@@ -269,56 +269,50 @@ export default () => {
 
 
             <g mask="url(#icon--mask)">
-                {icon.map((props, index, {length}) => (
-                    <animated.g transform="scale(1)" style={props} key={links[index].name}>
+                {links.map(({ name, color, label, to, href }, index, { length }) => (
+                    <animated.g transform="scale(1)" style={icon} key={name}>
                             <g transform={`rotate(${360 / length * index}) translate(0 ${140 * -1}) rotate(${360 / length * index * -1})`}>
                                 {
-                                    links[index].to
+                                    to
                                     ?
-                                    <LinkTo aria-label={links[index].name} to={links[index].to} color={links[index].color}>
+                                    <LinkTo aria-label={label} to={to} color={color}>
                                         <g transform="translate(-70 -70)">
                                         <svg viewBox="-50 -50 100 100" width="140" height="140">
                                             <g>
                                                 <path d="M 0 -32 a 32 32 0 0 1 0 64 32 32 0 0 1 0 -64" stroke="currentColor" strokeWidth="6" fill="none" />
-                                                <g style={{pointerEvents: 'none'}} mask="url(#text--mask)" transform={`rotate(${360 / length * index})`}>
-                                                    <g className="text" textAnchor="middle" fontSize="14">
-                                                        <text dy={(360 / length * index < 90 || 360 / length * index > 270) ? '-7' : '15'}>
-                                                            <textPath href={(360 / length * index < 90 || 360 / length * index > 270) ? '#icon--path--c' : '#icon--path--cc'} startOffset="0%">{links[index].name}</textPath>
-                                                        </text>
-                                                        <text dy={(360 / length * index < 90 || 360 / length * index > 270) ? '-7' : '15'}>
-                                                            <textPath href={(360 / length * index < 90 || 360 / length * index > 270) ? '#icon--path--c' : '#icon--path--cc'} startOffset="100%">{links[index].name}</textPath>
+                                                <g mask="url(#text--mask)" transform={`rotate(${360 / length * index})`}>
+                                                    <g className="text">
+                                                        <text textAnchor="middle" fontSize="14">
+                                                            <textPath href={(360 / length * index > 90 && 360 / length * index < 270) ? '#icon--path--cc' : '#icon--path--c'} startOffset="50%">{name}</textPath>
                                                         </text>
                                                     </g>
                                                 </g>
                                                 <g transform="scale(0.35) translate(-50 -50)">
-                                                    <Icon icon={links[index].name} />
+                                                    <Icon icon={name} />
                                                 </g>
-                                                <path d="M 0 -32 a 32 32 0 0 1 0 64 32 32 0 0 1 0 -64" opacity="0" />
+                                                <circle r="50" opacity="0" />
                                             </g>
                                         </svg>
                                         </g>
                                     </LinkTo>
                                     :
-                                    <LinkHref aria-label={links[index].name} href={links[index].href} color={links[index].color}>
+                                    <LinkHref aria-label={label} href={href} color={color}>
                                         <g transform="translate(-70 -70)">
 
                                         <svg viewBox="-50 -50 100 100" width="140" height="140">
                                             <g>
                                                 <path d="M 0 -32 a 32 32 0 0 1 0 64 32 32 0 0 1 0 -64" stroke="currentColor" strokeWidth="6" fill="none" />
-                                                <g style={{pointerEvents: 'none'}} mask="url(#text--mask)" transform={`rotate(${360 / length * index})`}>
-                                                    <g className="text" textAnchor="middle" fontSize="14">
-                                                        <text dy={(360 / length * index < 90 || 360 / length * index > 270) ? '-7' : '15'}>
-                                                            <textPath href={(360 / length * index < 90 || 360 / length * index > 270) ? '#icon--path--c' : '#icon--path--cc'} startOffset="0%">{links[index].name}</textPath>
-                                                        </text>
-                                                        <text dy={(360 / length * index < 90 || 360 / length * index > 270) ? '-7' : '15'}>
-                                                            <textPath href={(360 / length * index < 90 || 360 / length * index > 270) ? '#icon--path--c' : '#icon--path--cc'} startOffset="100%">{links[index].name}</textPath>
+                                                <g mask="url(#text--mask)" transform={`rotate(${360 / length * index})`}>
+                                                    <g className="text">
+                                                        <text textAnchor="middle" fontSize="14">
+                                                            <textPath href={(360 / length * index > 90 && 360 / length * index < 270) ? '#icon--path--cc' : '#icon--path--c'} startOffset="50%">{name}</textPath>
                                                         </text>
                                                     </g>
                                                 </g>
                                                 <g transform="scale(0.35) translate(-50 -50)">
-                                                        <Icon icon={links[index].name} />
+                                                        <Icon icon={name} />
                                                 </g>
-                                                <path d="M 0 -32 a 32 32 0 0 1 0 64 32 32 0 0 1 0 -64" opacity="0" />
+                                                <circle r="50" opacity="0" />
                                             </g>
                                         </svg>
                                         </g>

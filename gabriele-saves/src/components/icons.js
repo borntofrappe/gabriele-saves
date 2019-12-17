@@ -48,9 +48,9 @@ export default ({icon}) => {
         )
         case 'github':
             return (<svg xmlns="http://www.w3.org/2000/svg" viewBox="-50 -50 100 100">
-            <g fill="none" stroke="currentColor" strokeWidth="8" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M 0 43 h -13 a 5 5 0 0 1 -5 -5 v -15 q 0 -8 4 -12 a 22 22 0 0 1 -22 -22 q 0 -8 5 -16 q -4 -8 0 -16 q 10 0 16 8 a 30 30 0 0 1 30 0 q 6 -8 16 -8 q 4 8 0 16 q 5 8 5 16 a 22 22 0 0 1 -22 22 q 4 4 4 12 v 15 a 5 5 0 0 1 -5 5 h -13" />
-                <path transform="translate(-18 32) rotate(35)" d="M 0 0 q -6 6 -12 0 t -14 -0" />
+            <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                <path stroke-width="8" d="M 0 11 h -17 a 18 18 0 0 1 -18 -18 q 0 -8 5 -16 q -6 -10 0 -18 q 12 0 18 6 a 24 24 0 0 1 24 0 q 6 -6 18 -6 q 6 8 0 18 q 5 8 5 16 a 18 18 0 0 1 -18 18 h -17" />
+                <path stroke-width="6" d="M -12 11 q -10 0 -10 14 q 0 8 -8 14 q 20 0 20 -16 v 4 q 0 10 -6 16 q 16 0 16 -15 v -4 v 4 q 0 15 16 15 q -6 0 -6 -16 v -4 q 0 16 20 16 q -8 0 -8 -14 q 0 -14 -10 -14" />
             </g>
         </svg>)
         default:

@@ -102,7 +102,7 @@ export default () => {
         },
         {
             name: 'twitter',
-            href: 'twitter.com/borntofrappe',
+            href: 'https://twitter.com/borntofrappe',
             label: 'Twitter Profile',
             color: 'hsl(200, 80%, 60%)',
         },

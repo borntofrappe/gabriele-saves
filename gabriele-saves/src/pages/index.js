@@ -11,8 +11,6 @@ const Navigation = styled.nav`
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background: hsl(0, 0%, 100%);
-    color: hsl(0, 0%, 50%);
     font-family: monospace;
 `
 
@@ -35,7 +33,7 @@ const LinkTo = styled(Link)`
 
     &:hover,
     &:focus {
-        color: ${({color}) => color};
+        color: hsl(340, 80%, 55%);
         transform: scale(1);
     }
 
@@ -63,7 +61,7 @@ const LinkHref = styled.a`
 
     &:hover,
     &:focus {
-        color: ${({color}) => color};
+        color: hsl(340, 80%, 55%);
         transform: scale(1);
     }
 
@@ -292,7 +290,7 @@ export default () => {
                                                     <path d="M 0 -32 a 32 32 0 0 1 0 64 32 32 0 0 1 0 -64" stroke="currentColor" strokeWidth="6" fill="none" />
                                                     <g mask="url(#text--mask)" transform={`rotate(${360 / length * index})`}>
                                                         <g className="text">
-                                                            <text textAnchor="middle" fontSize="14">
+                                                            <text fill="currentColor" fontWeight="bold" textAnchor="middle" fontSize="14">
                                                                 <textPath href={(360 / length * index > 90 && 360 / length * index < 270) ? '#icon--path--cc' : '#icon--path--c'} startOffset="50%">{name}</textPath>
                                                             </text>
                                                         </g>
@@ -314,7 +312,7 @@ export default () => {
                                                     <path d="M 0 -32 a 32 32 0 0 1 0 64 32 32 0 0 1 0 -64" stroke="currentColor" strokeWidth="6" fill="none" />
                                                     <g mask="url(#text--mask)" transform={`rotate(${360 / length * index})`}>
                                                         <g className="text">
-                                                            <text textAnchor="middle" fontSize="14">
+                                                            <text fill="currentColor" fontWeight="bold" textAnchor="middle" fontSize="14">
                                                                 <textPath href={(360 / length * index > 90 && 360 / length * index < 270) ? '#icon--path--cc' : '#icon--path--c'} startOffset="50%">{name}</textPath>
                                                             </text>
                                                         </g>

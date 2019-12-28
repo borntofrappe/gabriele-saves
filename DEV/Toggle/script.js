@@ -7,8 +7,8 @@ const toggleMoon = document.querySelector('#toggle--moon');
 // toggle the boolean and assign a different set of colors for the two custom property
 function toggleTheme() {
   isDark = !isDark;
-  body.style.setProperty(`--background`, isDark ? 'hsl(0, 0%, 7%)' : 'hsl(0, 0%, 100%)');
-  body.style.setProperty(`--color`, isDark ? 'hsl(0, 0%, 100%)' : 'hsl(0, 0%, 7%)');
+  body.style.setProperty(`--background`, isDark ? 'hsl(245, 25%, 5%)' : 'hsl(35, 45%, 95%)');
+  body.style.setProperty(`--color`, isDark ? 'hsl(230, 15%, 75%)' : 'hsl(40, 40%, 20%)');
 
   // animate the chosen groups to highlight the different icons
   anime({

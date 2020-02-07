@@ -1,6 +1,6 @@
 const body = document.querySelector('body');
 const checkbox = document.querySelector('input');
-let isDark = true;
+let isDark = false;
 const toggleSun = document.querySelector('#toggle--sun');
 const toggleMoon = document.querySelector('#toggle--moon');
 
@@ -14,13 +14,13 @@ function toggleTheme() {
   anime({
     targets: toggleMoon,
     transform: isDark ? 'scale(0)' : 'scale(1)',
-    duration: 600,
+    duration: 400,
     easing: 'easeInOutBack',
   });
   anime({
     targets: toggleSun,
     transform: isDark ? 'scale(1)' : 'scale(0)',
-    duration: 600,
+    duration: 400,
     easing: 'easeInOutBack',
   });
 }

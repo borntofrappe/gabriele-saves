@@ -5,8 +5,8 @@
 }
 /* the colors are set and updated through custom properties */
 :root {
-  --color: hsl(230, 15%, 75%);
-  --background: hsl(245, 25%, 5%);
+  --color: hsl(40, 40%, 20%);
+  --background: hsl(35, 45%, 95%);
 }
 body {
   /* center in the viewport */
@@ -17,7 +17,7 @@ body {
   /* add a transition for the color and background values */
   color: var(--color);
   background: var(--background);
-  transition: color 0.75s 0.5s ease-in-out, background 0.75s 0.5s ease-in-out;
+  transition: color 0.4s 0.2s ease-in-out, background 0.45s 0.3s ease-in-out;
 }
 
 /* absolute position the input element atop the svg icon */
@@ -34,16 +34,17 @@ label input {
 }
 label svg {
   display: block;
-  width: 3.75rem;
-  height: 3.75rem;
+  width: 3rem;
+  height: 3rem;
   color: inherit;
-  padding: 0.5rem;
+  padding: 0.25rem;
   /* to highlight the focus state add a border around the svg graphic */
-  border: 0.1rem solid transparent;
-  transition: border-color 0.25s ease-in-out;
+  border: 5px solid currentColor;
+  transition: color 0.25s ease-in-out;
   border-radius: 50%;
 }
+label input:hover + svg,
 label input:focus + svg,
 label input:active + svg {
-  border-color: currentColor;
+  color: hsl(340, 80%, 55%);
 }

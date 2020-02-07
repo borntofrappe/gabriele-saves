@@ -1,25 +1,19 @@
-# Gabriele's Save File
+# What's this?
 
-> _where I take a moment to save my journey as an aspiring web developer_
->
-> ---
->
-> also, the perfect excuse to practice with the following:
->
-> -   SVG Syntax
->
-> -   React
->
-> -   Gatsby
->
-> -   GraphQL
+A corner on the web where I take a moment to save my journey as an aspiring software developer.
 
-## Notes
+## Road Map
 
-In the **DEV** folder I describe the development of this very website, with a verbose markdown file and a series of smaller projects developing different parts of the application.
+- [ ] Design landing page
 
-In this markdown file instead, I set out to schedule upcoming features, such as:
+- [ ] Follow Gatsby's own tutorial to set up the blog
 
--   [ ] 404, missing page, for any path not matching a known route.
+- [ ] Write first post: **Up and Running**
 
--   [ ] "About me" section, for the `/about` route.
+- [ ] Publish with Netlify
+
+## Missing Features
+
+- [ ] About page, for the `/about` route.
+
+- [ ] 404 page, for any non matching route

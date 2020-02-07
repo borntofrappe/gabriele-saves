@@ -117,7 +117,7 @@ export default () => {
         delay: 250,
         config: {
             tension: 400,
-            friction: 15
+            friction: 20
         },
         from: { transform: 'scale(0) rotate(0deg)' },
         to: { transform: 'scale(1) rotate(-30deg)' },
@@ -131,15 +131,15 @@ export default () => {
           friction: 30,
         },
         from: { transform: 'translate(-40px, 0px)' },
-        to: async next => {
-            await next({ transform: 'translate(0px, 0px)' })
-            await next({ transform: 'translate(-40px, 14px)' })
-            await next({ transform: 'translate(0px, 14px)' })
-            await next({ transform: 'translate(-40px, 28px)' })
-            await next({ transform: 'translate(0, 28px)' })
-            await next({ transform: 'translate(-40px, 42px)' })
-            await next({ transform: 'translate(0, 42px)' })
-        },
+        to: [
+            { transform: 'translate(0px, 0px)' },
+            { transform: 'translate(-40px, 14px)' },
+            { transform: 'translate(0px, 14px)' },
+            { transform: 'translate(-40px, 28px)' },
+            { transform: 'translate(0, 28px)' },
+            { transform: 'translate(-40px, 42px)' },
+            { transform: 'translate(0, 42px)' },
+        ],
         ref: pencilRef
       })
 
@@ -213,7 +213,7 @@ export default () => {
         from: { visibility: 'hidden', transform: 'scale(0)' },
         to: { visibility: 'visible', transform: 'scale(1)' },
         config: {
-            tension: 325,
+            tension: 350,
             friction: 15,
           },
         ref: iconsRef

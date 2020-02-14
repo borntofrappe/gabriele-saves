@@ -1,19 +1,11 @@
 # What's this?
 
-A corner on the web where I take a moment to save my journey as an aspiring software developer.
+A corner on the web where I take a moment to save my thoughts as I learn and improve as a developer.
 
 ## Road Map
 
-- [ ] Design landing page
+Originally, I thought of developing the website using React and Gatsby. Looking at [11ty](https://www.11ty.dev/) however, I was impressed by the approach of the static site generator, and decided to course correct.
 
-- [ ] Follow Gatsby's own tutorial to set up the blog
+- [ ] Watch [this](https://youtu.be/j8mJrhhdHWc)
 
-- [ ] Write first post: **Up and Running**
-
-- [ ] Publish with Netlify
-
-## Missing Features
-
-- [ ] About page, for the `/about` route.
-
-- [ ] 404 page, for any non matching route
+- [ ] Go through [evelenty's docs](https://www.11ty.dev/docs/)

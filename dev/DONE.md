@@ -1,0 +1,1 @@
+- go through the [Getting Started Guide](https://www.11ty.dev/docs/getting-started/). Doesn't go too much into the ins and out of the static site generator. Completed 15-02-2020.

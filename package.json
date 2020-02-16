@@ -1,0 +1,23 @@
+{
+  "name": "gabriele-saves",
+  "version": "1.0.0",
+  "description": "Here I try my best to document my journey discovering 11ty.",
+  "main": ".eleventyignore.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/borntofrappe/gabriele-saves.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/borntofrappe/gabriele-saves/issues"
+  },
+  "homepage": "https://github.com/borntofrappe/gabriele-saves#readme",
+  "devDependencies": {
+    "@11ty/eleventy": "^0.10.0"
+  }
+}

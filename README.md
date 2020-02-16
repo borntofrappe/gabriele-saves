@@ -95,7 +95,31 @@ With `njk`, `content` the markup is pasted a string....It seems it's not enough 
 
 Interesting.
 
-### Nunjucks
+### npm
+
+I hadn't set up a package.json, but [11ty suggests installing the static site generator locally](https://www.11ty.dev/docs/getting-started/#create-a-package.json)
+
+This should also allow me to install nunjuck, if I were to change my mind.
+
+```code
+npm init -y
+```
+
+Surpringly,the JSON object picks up from the README and the name of the repo.
+
+```code
+npm install --save-dev @11ty/eleventy
+```
+
+### .eleventyignore
+
+This file allows to ignore instructed files and folders. For instance, this very README.md
+
+```js
+README.md;
+```
+
+This certainly saves me from worrying about the syntax I use in these notes.
 
 ## TO
 
@@ -108,3 +132,9 @@ Interesting.
 #### NE
 
 - go through the [Getting Started Guide](https://www.11ty.dev/docs/getting-started/). Doesn't go too much into the ins and out of the static site generator. Completed 15-02-2020.
+
+## Links
+
+- [Let’s Learn Eleventy! (with Zach Leatherman) — Learn With Jason](https://youtu.be/j8mJrhhdHWc)
+- [Official Docs](https://www.11ty.dev/docs/)
+- [Getting Started Guide](https://www.11ty.dev/docs/getting-started/)

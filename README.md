@@ -2,6 +2,8 @@
 
 Here I try my best to document my journey discovering 11ty.
 
+A very-much-work-in-progress.
+
 ## Notes
 
 ### Getting Started
@@ -277,13 +279,48 @@ I could then pick up the array anywhere, including the `layout.liquid` file.
 
 ### Pagination
 
-https://youtu.be/j8mJrhhdHWc?t=3267
+Configures in the frontmatter.
+
+```md
+---
+pagination:
+  data: collections.writing
+  size: 2
+  alias: articles
+---
+```
+
+This will limit the number of articles shown in the single page. But you need more to go through the pages.
+
+Use the alias instead of `collections.writing` when injecting the articles.
+
+```liquid
+{% for article in articles %}
+
+- [{{article.data.title}}]({{article.url}})
+
+{% endfor %}
+```
+
+Note: I had to move the `index.md` file outside of the `writing` folder, as it seems 11ty tries to paginate the file itself, and there can only be one file for the root path `/`
+
+To make links to other item:
+
+```liquid
+{% if pagination.href.previous %}
+  <a href="{{pagination.href.previous}}">Previous</a>
+{% endif %}
+
+{% if pagination.href.next %}
+  <a href="{{pagination.href.next}}">next</a>
+{% endif %}
+```
+
+Consider reviewing the [pagination navigation section](https://www.11ty.dev/docs/pagination/nav/). It's still unclear as to how to provide a number like in Google'search results.
 
 ## TO
 
 ### DO
-
-- complete this: [Let’s Learn Eleventy! (with Zach Leatherman) — Learn With Jason](https://youtu.be/j8mJrhhdHWc)
 
 - learn how to use data with the [data cascade](https://www.11ty.dev/docs/data-cascade/)
 
@@ -291,7 +328,9 @@ https://youtu.be/j8mJrhhdHWc?t=3267
 
 #### NE
 
-- go through the [Getting Started Guide](https://www.11ty.dev/docs/getting-started/). Doesn't go too much into the ins and out of the static site generator. Completed 15-02-2020.
+- go through the [Getting Started Guide](https://www.11ty.dev/docs/getting-started/). Doesn't go too much into the ins and out of the static site generator. Completed 2020-01-15.
+
+- watch [Let’s Learn Eleventy! (with Zach Leatherman) — Learn With Jason](https://youtu.be/j8mJrhhdHWc). Completed 2020-01-16.
 
 ## Links
 

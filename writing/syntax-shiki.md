@@ -5,6 +5,12 @@ date: 2020-01-16
 
 Here a code snippet or two to try out syntax highlighting.
 
+## A-sync-ed
+
+{{code}}
+
+## JS
+
 ```js
 function fibonacci(n) {
   const sequence = [1, 1];
@@ -16,6 +22,8 @@ function fibonacci(n) {
   return sequence[n - 1];
 }
 ```
+
+## CSS
 
 ```css
 * {

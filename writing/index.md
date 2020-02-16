@@ -1,6 +1,7 @@
 ---
 title: Gabriele Saves
-layout: layout.liquid
+permalink: /
+tags: false
 ---
 
 Where I take a moment to save my journey as an aspiring web developer.
@@ -10,3 +11,7 @@ Where I take a moment to save my journey as an aspiring web developer.
 - [{{article.data.title}}]({{article.url}})
 
 {% endfor %}
+
+## Code Snippet
+
+{{code}}

@@ -135,11 +135,155 @@ And then pick up the collection in the markdown or templates which need to use t
 
 Handily enough, the collection provides the path toward the markdown files in the `url` property.
 
+### permalink
+
+With a permalink you can modify the path where the markdown files are rendered. The output essentially.
+
+For instance you can move `index.md` in the writing folder, next to the actual articles, and have it rendered on the root path as follows.
+
+```md
+---
+title: Gabriele Saves
+permalink: /
+---
+```
+
+In the root `index` will reference itself, and you can remove it from the collection modifying the `tags` for the individual article.
+
+```md
+---
+title: Gabriele Saves
+permalink: /
+tags: false
+---
+```
+
+`false`, or an empty stirng, or`no`, as cheekily done by Jason in the screencast.
+
+### Data Files
+
+Instead of `data.json`, we can use `data.js` and export the data instead
+
+```js
+module.exports = {
+  layout: "layout.liquid",
+  tags: "writing"
+};
+```
+
+This can actually be a function.
+
+```js
+module.exports = () => ({
+  layout: "layout.liquid",
+  tags: "writing"
+};);
+```
+
+And an async function at that.
+
+```js
+module.exports = async () => ({
+  layout: "layout.liquid",
+  tags: "writing"
+};);
+```
+
+Trying things out with `shiki`.
+
+```code
+npm i shiki
+```
+
+```js
+const shiki = require("shiki");
+```
+
+```js
+module.exports = async () => {
+  shiki
+    .getHighlighter({
+      theme: "nord"
+    })
+    .then(highlighter => {
+      console.log(highlighter.codeToHtml(`console.log('shiki');`, "js"));
+    });
+
+  // do something
+  return {
+    layout: "layout.liquid",
+    tags: "writing"
+  };
+};
+```
+
+Logging several times something like the following:
+
+```
+<pre class="shiki" style="background-color: #2e3440"><code><span style="color: #8FBCBB">console</span><span style="color: #ECEFF4">.</span><span style="color: #88C0D0">log</span><span style="color: #D8DEE9FF">(</span><span style="color: #ECEFF4">'</span><span style="color: #A3BE8C">Hello world</span><span style="color: #ECEFF4">'</span><span style="color: #D8DEE9FF">)</span><span style="color: #81A1C1">;</span></code></pre>
+```
+
+To include it in the actual document you need an `await` call.
+
+Something similar to:
+
+```js
+const shiki = require("shiki");
+
+module.exports = async () => {
+  const code = await shiki
+    .getHighlighter({
+      theme: "zeit"
+    })
+    .then(highlighter => highlighter.codeToHtml(`console.log('Hello world');`, "js"));
+
+  return {
+    layout: "layout.liquid",
+    tags: "writing",
+    code
+  };
+};
+```
+
+In `index.md` then, and for instance, you can include the desired output by referencing the variable.
+
+```md
+## Code Snippet
+
+{{code}}
+```
+
+The issue comes then, how to pick up the code in the markdown files... regular expressions?
+
+### \_data
+
+In a `_data` folder you can apparently specify data that is available everywhere else.
+
+For instance, if I were to create a `social.js` file in the `_data` folder.
+
+```js
+module.exports = () => ["CodePen", "Twitter", "Github", "freeCodeCamp"];
+```
+
+I could then pick up the array anywhere, including the `layout.liquid` file.
+
+```liquid
+<ul>
+{%- for link in social  %}
+  <li>{{link}}</li>
+{% endfor %}
+</ul>
+```
+
+### Pagination
+
+https://youtu.be/j8mJrhhdHWc?t=3267
+
 ## TO
 
 ### DO
 
-- watch this: [Let’s Learn Eleventy! (with Zach Leatherman) — Learn With Jason](https://youtu.be/j8mJrhhdHWc)
+- complete this: [Let’s Learn Eleventy! (with Zach Leatherman) — Learn With Jason](https://youtu.be/j8mJrhhdHWc)
 
 - learn how to use data with the [data cascade](https://www.11ty.dev/docs/data-cascade/)
 

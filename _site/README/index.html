@@ -1,0 +1,71 @@
+<h1>11ty Notes</h1>
+<p>Here I try my best to document my journey discovering 11ty.</p>
+<h2>Notes</h2>
+<h3>Getting Started</h3>
+<p>Looking at the <a href="https://www.11ty.dev/">homepage for 11ty</a>, it is surprisingly easy to get up and running.</p>
+<pre><code class="language-code">npm install -g @11ty/eleventy
+</code></pre>
+<p>I already had a <code>README.md</code> file in the root folder, so I didn't even need to run <code>echo '# Page header' &gt; README.md</code>. Although, I didn't know you could create <em>and</em> populate a file with that syntax.</p>
+<pre><code class="language-code">eleventy
+eleventy --serve
+</code></pre>
+<p>That's it. Visit <code>localhost:8080/README</code>, and the markdown is made available in the familiar DOM tree.</p>
+<h3>Frontmatter</h3>
+<hr>
+<p>title: Frontmatter and Liquid
+layout: layout.liquid</p>
+<hr>
+<!-- https://youtu.be/j8mJrhhdHWc?t=1319 -->
+<h1></h1>
+<p>This is quite meta, but data can be picked up automatically within the double curly brackets.</p>
+<pre><code class="language-md">---
+title: Frontmatter
+---
+</code></pre>
+<p>And later: <strong>{{ title }}</strong></p>
+<p>By default uses <a href="https://shopify.dev/docs/liquid">liquid</a>, a templating language from <a href="https://www.shopify.com/">Shopify</a>, but you can use other templates using a config file.</p>
+<p>I heard good things from <a href="https://twitter.com/chriscoyier">Chris Coyier</a> regarding <a href="https://mozilla.github.io/nunjucks/">Nunjucks</a>, so I'll give that one a trial. In a <code>.eleventy.js</code> file in the root folder:</p>
+<pre><code class="language-js">module.exports = {
+  markdownTemplateEngine: &quot;njk&quot;
+};
+</code></pre>
+<p>Testing things out with a <a href="https://mozilla.github.io/nunjucks/templating.html#if">quick <code>if</code> statement</a>.</p>
+<pre><code class="language-njk">
+</code></pre>
+<p>For a template: add a <code>_includes</code> folder at the root of the website. In here, a <code>layout.njk</code> file describes the following template.</p>
+<pre><code class="language-njk">&lt;!doctype html&gt;
+
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+  &lt;title&gt;&lt;/title&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+  
+&lt;/body&gt;
+
+&lt;/hml&gt;
+</code></pre>
+<p>Refer to the layout file within the front matter.</p>
+<pre><code>layout: layout.njk
+</code></pre>
+<p>Small hitch. It's not <code>content</code> in njk, although that would work if you were to use liquid.</p>
+<pre><code>layout: layout.liquid
+</code></pre>
+<p>With <code>njk</code>, <code>content</code> the markup is pasted a string....It seems it's not enough to import nunjuck. Youneed to actually install it and consider <a href="https://www.11ty.dev/docs/languages/nunjucks/">more options</a>. To make due without the pain, I'll roll back to liquid for the time being.</p>
+<p>Interesting.</p>
+<h3>Nunjucks</h3>
+<h2>TO</h2>
+<h3>DO</h3>
+<ul>
+<li>
+<p>watch this: <a href="https://youtu.be/j8mJrhhdHWc">Let’s Learn Eleventy! (with Zach Leatherman) — Learn With Jason</a></p>
+</li>
+<li>
+<p>review <a href="https://www.11ty.dev/docs/">Official Docs</a></p>
+</li>
+</ul>
+<h4>NE</h4>
+<ul>
+<li>go through the <a href="https://www.11ty.dev/docs/getting-started/">Getting Started Guide</a>. Doesn't go too much into the ins and out of the static site generator. Completed 15-02-2020.</li>
+</ul>

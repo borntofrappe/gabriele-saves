@@ -1,6 +1,33 @@
+# 11ty Notes
+
+Here I try my best to document my journey discovering 11ty.
+
+## Notes
+
+### Getting Started
+
+Looking at the [homepage for 11ty](https://www.11ty.dev/), it is surprisingly easy to get up and running.
+
+```code
+npm install -g @11ty/eleventy
+```
+
+I already had a `README.md` file in the root folder, so I didn't even need to run `echo '# Page header' > README.md`. Although, I didn't know you could create _and_ populate a file with that syntax.
+
+```code
+eleventy
+eleventy --serve
+```
+
+That's it. Visit `localhost:8080/README`, and the markdown is made available in the familiar DOM tree.
+
+### Frontmatter
+
 ---
+
 title: Frontmatter and Liquid
 layout: layout.liquid
+
 ---
 
 <!-- https://youtu.be/j8mJrhhdHWc?t=1319 -->
@@ -67,3 +94,17 @@ layout: layout.liquid
 With `njk`, `content` the markup is pasted a string....It seems it's not enough to import nunjuck. Youneed to actually install it and consider [more options](https://www.11ty.dev/docs/languages/nunjucks/). To make due without the pain, I'll roll back to liquid for the time being.
 
 Interesting.
+
+### Nunjucks
+
+## TO
+
+### DO
+
+- watch this: [Let’s Learn Eleventy! (with Zach Leatherman) — Learn With Jason](https://youtu.be/j8mJrhhdHWc)
+
+- review [Official Docs](https://www.11ty.dev/docs/)
+
+#### NE
+
+- go through the [Getting Started Guide](https://www.11ty.dev/docs/getting-started/). Doesn't go too much into the ins and out of the static site generator. Completed 15-02-2020.

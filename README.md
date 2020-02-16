@@ -21,50 +21,42 @@ eleventy --serve
 
 That's it. Visit `localhost:8080/README`, and the markdown is made available in the familiar DOM tree.
 
+Any markdown file will create an `html` file with a URL matching the document's name.
+
+### npm install
+
+I installed eleventy globally, but [11ty suggests installing the static site generator locally](https://www.11ty.dev/docs/getting-started/#create-a-package.json).
+
+A `package.json` is also useful in the moment I decide to pick up other dependencies (hello [shiki](https://github.com/octref/shiki))
+
+```code
+npm init -y
+npm install --save-dev @11ty/eleventy
+```
+
 ### Frontmatter
 
----
-
-title: Frontmatter and Liquid
-layout: layout.liquid
-
----
-
-<!-- https://youtu.be/j8mJrhhdHWc?t=1319 -->
-
-# {{ title }}
-
-This is quite meta, but data can be picked up automatically within the double curly brackets.
+A markdown file is able to already include data in the form of property value pairs specified at the top of the file
 
 ```md
 ---
-title: Frontmatter
+title: Up and Running
 ---
-```
 
-And later: **\{\{ title }}**
+# {{ title }}
+```
 
 By default uses [liquid](https://shopify.dev/docs/liquid), a templating language from [Shopify](https://www.shopify.com/), but you can use other templates using a config file.
 
-I heard good things from [Chris Coyier](https://twitter.com/chriscoyier) regarding [Nunjucks](https://mozilla.github.io/nunjucks/), so I'll give that one a trial. In a `.eleventy.js` file in the root folder:
+### Layout
 
-```js
-module.exports = {
-  markdownTemplateEngine: "njk"
-};
-```
+On top of, or instead of, templating the file directly in the markdown document, you can add a template in a `layout` file.
 
-Testing things out with a [quick `if` statement](https://mozilla.github.io/nunjucks/templating.html#if).
+Add a `_includes` folder at the root of the website. 11ty is instructed to look at the particular label.
 
-```njk
-{% if title %}
-There is a title
-{% endif %}
-```
+Add a `layout.liquid` file.
 
-For a template: add a `_includes` folder at the root of the website. In here, a `layout.njk` file describes the following template.
-
-```njk
+```liquid
 <!doctype html>
 
 <html lang="en">
@@ -73,53 +65,52 @@ For a template: add a `_includes` folder at the root of the website. In here, a 
 </head>
 
 <body>
+  <h1>{{title}}</h1>
   {{content}}
 </body>
 
-</hml>
+</html>
 ```
 
 Refer to the layout file within the front matter.
 
 ```
-layout: layout.njk
-```
-
-Small hitch. It's not `content` in njk, although that would work if you were to use liquid.
-
-```
 layout: layout.liquid
 ```
 
-With `njk`, `content` the markup is pasted a string....It seems it's not enough to import nunjuck. Youneed to actually install it and consider [more options](https://www.11ty.dev/docs/languages/nunjucks/). To make due without the pain, I'll roll back to liquid for the time being.
-
-Interesting.
-
-### npm
-
-I hadn't set up a package.json, but [11ty suggests installing the static site generator locally](https://www.11ty.dev/docs/getting-started/#create-a-package.json)
-
-This should also allow me to install nunjuck, if I were to change my mind.
-
-```code
-npm init -y
-```
-
-Surpringly,the JSON object picks up from the README and the name of the repo.
-
-```code
-npm install --save-dev @11ty/eleventy
-```
+This also sets up hot reloading.
 
 ### .eleventyignore
 
 This file allows to ignore instructed files and folders. For instance, this very README.md
 
-```js
-README.md;
+```
+README.md
 ```
 
 This certainly saves me from worrying about the syntax I use in these notes.
+
+### 11tydata
+
+[Template data files](https://www.11ty.dev/docs/data-template-dir/). Applied on a file, or a directory. This allows to have the layout applied on every article in the writing section for instance.
+
+`writing.11tydata.json`
+
+```json
+{
+  "layout": "layout.liquid"
+}
+```
+
+`json` or `js` should both work. Use the latter if you need to do something before setting up the necessary layout.
+
+The entire section on [data cascade](https://www.11ty.dev/docs/data-cascade/) warrants a read or two.
+
+### index Page
+
+https://youtu.be/j8mJrhhdHWc?t=1750
+
+---
 
 ## TO
 
@@ -127,7 +118,9 @@ This certainly saves me from worrying about the syntax I use in these notes.
 
 - watch this: [Let’s Learn Eleventy! (with Zach Leatherman) — Learn With Jason](https://youtu.be/j8mJrhhdHWc)
 
-- review [Official Docs](https://www.11ty.dev/docs/)
+- learn how to use data with the [data cascade](https://www.11ty.dev/docs/data-cascade/)
+
+- give a read to the templating language [liquid](https://shopify.dev/docs/liquid)
 
 #### NE
 
@@ -136,5 +129,4 @@ This certainly saves me from worrying about the syntax I use in these notes.
 ## Links
 
 - [Let’s Learn Eleventy! (with Zach Leatherman) — Learn With Jason](https://youtu.be/j8mJrhhdHWc)
-- [Official Docs](https://www.11ty.dev/docs/)
-- [Getting Started Guide](https://www.11ty.dev/docs/getting-started/)
+- [11ty](https://www.11ty.dev/)

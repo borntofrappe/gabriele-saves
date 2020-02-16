@@ -19,5 +19,6 @@
   "homepage": "https://github.com/borntofrappe/gabriele-saves#readme",
   "devDependencies": {
     "@11ty/eleventy": "^0.10.0"
-  }
+  },
+  "dependencies": {}
 }

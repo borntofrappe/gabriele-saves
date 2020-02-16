@@ -106,11 +106,34 @@ This certainly saves me from worrying about the syntax I use in these notes.
 
 The entire section on [data cascade](https://www.11ty.dev/docs/data-cascade/) warrants a read or two.
 
-### index Page
+### Collections
 
-https://youtu.be/j8mJrhhdHWc?t=1750
+To set up an index page use a collection.
 
----
+Again, [the docs have more](https://www.11ty.dev/docs/collections/), but here's the gist: refer to the directory in a `tags` field.
+
+For instance and in `writing.11ty.json`.
+
+```json
+{
+  "layout": "layout.liquid",
+  "tags": "writing"
+}
+```
+
+Then, pick up the collection where needed, using `collections.name`. For instance and in the root file `index.md`
+
+And then pick up the collection in the markdown or templates which need to use the data. Similarly to `{{title}}`
+
+```md
+{% for post in collections.writing %}
+
+- [{{post.data.title}}]({{post.url}})
+
+{% endfor %}
+```
+
+Handily enough, the collection provides the path toward the markdown files in the `url` property.
 
 ## TO
 

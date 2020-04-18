@@ -1,1 +1,0 @@
-module.exports = () => ['CodePen', 'Twitter', 'Github', 'freeCodeCamp'];

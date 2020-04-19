@@ -16,6 +16,6 @@ saves.forEach(save => {
     const {index} = match;
     matches.push([spaces, title, index]);
   }
-  const tableOfContents = matches.map(([spaces, title]) => `${'  '.repeat(spaces.length - 2)}- [${title}](#${title.replace(' ', '-')})`).join('\n\n');
+  const tableOfContents = matches.map(([spaces, title]) => `${'  '.repeat(spaces.length - 2)}- [${title}](#${title.replace(/ /g, '-')})`).join('\n\n');
   fs.writeFileSync(`./saves/${save}`, `# Table of Contents\n\n${tableOfContents}\n\n${content.slice(matches[0][2])}`);
 });

@@ -1,3 +1,3 @@
-# gabriele-saves
+A repository a-waiting a purpose.
 
-A place where I jot down a line or two as I write software and grow as a result
+<!-- nothing to see here, for now -->

@@ -1,3 +1,1 @@
-A repository a-waiting a purpose.
-
-<!-- nothing to see here, for now -->
+> a collection of notes connected by the fact that I am writing them — gabriele

@@ -1,4 +1,12 @@
-# [C# Tutorial - Full Course for Beginners](https://youtu.be/GhQdlIFylQ8)
+# C# Tutorial - Full Course for Beginners
+
+## Resources
+
+- [Video Course](https://youtu.be/GhQdlIFylQ8)
+
+- [REPL to experiment with the code](https://repl.it/@borntofrappe/beginnerluck)
+
+## Getting started
 
 ```cs
 // hello world
@@ -661,6 +669,35 @@ int[,] grid = {
 grid[1, 0]; // 4
 ```
 
+### Snippet
+
+`Length` provides the length of the array in terms of the number of items it contains. To find the length of a nested array, use `GetLength()` and specify the dimension in between parenthesis.
+
+```cs
+// print out the contents of a 2D array
+using System;
+
+class MainClass {
+  public static void Main (string[] args) {
+    int[,] grid = {
+      {1, 2, 3},
+      {4, 5, 6},
+      {7, 8, 8}
+    };
+
+    for(int row = 0; row < grid.GetLength(0); row ++) {
+      for(int column = 0; column < grid.GetLength(1); column ++) {
+        Console.Write(grid[row, column]);
+        if(column < grid.GetLength(1) - 1) {
+          Console.Write("\t")
+        }
+      }
+      Console.WriteLine("");
+    }
+  }
+}
+```
+
 ## Comments
 
 Text that is not executed by the compiler.
@@ -748,6 +785,448 @@ class MainClass {
             Console.WriteLine("Division aborted.");
         }
     }
+  }
+}
+```
+
+## Classes and objects
+
+Through classes the c-sharp language essentially allows to create a new type of value.
+
+Define a class, specifying its attributes.
+
+```cs
+class Character {
+  public string name;
+  public bool isEnemy;
+  public int hp;
+}
+```
+
+Create an object, an instance of the class.
+
+```cs
+Main() {
+  Character slime = new Character();
+  slime.name = "Blue slime";
+  slime.isEnemy = true;
+  slime.hp = 5;
+}
+```
+
+### Snippet
+
+```cs
+// build a classs and highlight the attributes of an object
+using System;
+
+class MainClass {
+  public static void Main (string[] args) {
+    Character slime = new Character();
+    slime.name = "Blue slime";
+    slime.isEnemy = true;
+    slime.hp = 5;
+
+    Console.WriteLine("HP: " + slime.hp);
+    slime.hp--;
+    Console.WriteLine("HP left: " + slime.hp);
+  }
+}
+
+class Character {
+    public string name;
+    public bool isEnemy;
+    public int hp;
+}
+```
+
+## Constructor
+
+Instead of specifying the attributes line by line, a constructor methods allows to build an object by passing arguments in between parenthesis.
+
+```cs
+Main() {
+  Character slime = new Character("Blue slime", true, 5);
+}
+```
+
+In the definition of the class, build the constructor method by using the same name of the class.
+
+```cs
+class Character {
+  public string name;
+  public bool isEnemy;
+  public int hp;
+
+  public Character(string argName, bool argIsEnemy, int argHp) {
+    name = argName;
+    isEnemy = argIsEnemy;
+    hp = argHp;
+  }
+}
+```
+
+Conveniently, it's possible to describe different constructor methods.
+
+```cs
+public Character() {
+    // no args
+}
+
+public Character(string name, bool isEnemy, int hp) {
+    // args
+}
+```
+
+In this manner it's possible to create an instance with different calls. In the specific instance by specifying zero or three arguments.
+
+### Snippet
+
+```cs
+// build a classs with a constructor method
+using System;
+
+class MainClass {
+  public static void Main (string[] args) {
+    Character slime = new Character("Blue slime", true, 5);
+
+    Console.WriteLine("HP: " + slime.hp);
+    slime.hp--;
+    Console.WriteLine("HP left: " + slime.hp);
+  }
+}
+
+class Character {
+    public string name;
+    public bool isEnemy;
+    public int hp;
+
+    public Character(string argName, bool argIsEnemy, int argHp) {
+      name = argName;
+      isEnemy = argIsEnemy;
+      hp = argHp;
+    }
+}
+```
+
+## Object methods
+
+A class is able to define variables, but also its own functions.
+
+```cs
+public bool IsAlive() {
+  return hp > 0;
+}
+```
+
+In the body of the `Main` class then, the method is called directly from the object.
+
+```cs
+slime.IsAlive();
+```
+
+### Snippet
+
+```cs
+// add methods to the Character class
+using System;
+
+class MainClass {
+  public static void Main (string[] args) {
+    Character slime = new Character("Blue slime", true, 5);
+
+    Console.WriteLine("HP: " + slime.hp);
+    while(slime.IsAlive()) {
+      slime.hit(2);
+    }
+    Console.WriteLine("HP left: " + slime.hp);
+  }
+}
+
+class Character {
+    public string name;
+    public bool isEnemy;
+    public int hp;
+
+    public Character(string argName, bool argIsEnemy, int argHp) {
+      name = argName;
+      isEnemy = argIsEnemy;
+      hp = argHp;
+    }
+
+    public bool IsAlive() {
+      return hp > 0;
+    }
+
+    public void hit(int damage) {
+      if(hp > 0) {
+        hp = Math.Max(hp - damage, 0);
+      }
+    }
+}
+```
+
+## Getters and setters
+
+Control access to the attributes of a class.
+
+With the `public` keyword, the attributes of a class are accessible from everywhere, including the body of the `Main` class. With the `private` keyword, on the other hand, the attributes are available only in the body of the individual class.
+
+```cs
+private int exp;
+```
+
+In this context, getters and setters methods are the only way to retrieve and set the value. These are defined in the scope of a property.
+
+```cs
+public int Exp {
+  get {
+    return exp;
+  }
+
+  set {
+    if(exp > 0) {
+      exp = value;
+    } else {
+      exp  = 0;
+    }
+  }
+}
+```
+
+You then set the attribute using `Exp` instead of `exp`.
+
+```cs
+public Character(string argName, bool argIsEnemy, int argHp, int argExp) {
+  Exp = argExp;
+}
+```
+
+With this setup, it is possible to set the value from the constructor, and in this instance the value is set following the rules described in the property's setter method.
+
+```cs
+Character slime = new Character("Blue slime", true, 5, -10);
+Console.WriteLine(slime.Exp); // 10
+```
+
+And to retrieve the value use the property with the capital initial.
+
+### Snippet
+
+```cs
+// experiment with a property with setter and getter methods
+using System;
+
+class MainClass {
+  public static void Main (string[] args) {
+    Character slime = new Character("Blue slime", true, 5, -10);
+    Character metalSlime = new Character("Blue slime", true, 5, 1000);
+
+    Console.WriteLine(slime.Exp);
+    Console.WriteLine(metalSlime.Exp);
+  }
+}
+
+class Character {
+  public string name;
+  public bool isEnemy;
+  public int hp;
+  private int exp;
+
+  public Character(string argName, bool argIsEnemy, int argHp, int argExp) {
+    name = argName;
+    isEnemy = argIsEnemy;
+    hp = argHp;
+    Exp = argExp;
+  }
+
+  public int Exp {
+    get {
+      return exp;
+    }
+
+    set {
+      if(value > 0) {
+        exp = value;
+      } else {
+        exp  = 0;
+      }
+    }
+  }
+}
+```
+
+## Static attributes
+
+The `static` keyword allows to define variables on the class instead of its instances.
+
+```cs
+class Character {
+  public static string author = "Gabriele";
+}
+```
+
+Not available on the instances of the class, but only the class itself (Although you can create a getter method to return the same information from the class)
+
+```cs
+Character.author; // "Gabriele"
+```
+
+## Static methods
+
+Similarly to static attributes, static methods are available on the class instead of its objects. One example comes from the `Math` class, introduced earlier; here, `Math.Sqrt(144)` is a static method.
+
+```cs
+class Character {
+  public static void Credits() {
+    Console.WriteLine("Gabriele — September 2020");
+  }
+}
+```
+
+## Static class
+
+A static class is a which cannot create instances. Once again, the `Math` class provides an example; here, it's not possible to create an instance as in `new Math()`.
+
+```cs
+static class Game {
+  public static void ShowInfo() {
+    Console.WriteLine("A class describing a game-to-be. Or just a static class.");
+  }
+}
+```
+
+### Snippet
+
+```cs
+// experiment with the static keyword
+using System;
+
+class MainClass {
+  public static void Main (string[] args) {
+    Character slime = new Character("Blue slime", true, 5);
+
+    Console.WriteLine(slime.name + ", created by " + Character.author);
+    Character.ShowCredits();
+
+    Game.ShowInfo();
+  }
+}
+
+class Character {
+    public static string author = "Gabriele";
+
+    public string name;
+    public bool isEnemy;
+    public int hp;
+
+    public Character(string argName, bool argIsEnemy, int argHp) {
+      name = argName;
+      isEnemy = argIsEnemy;
+      hp = argHp;
+    }
+
+    public static void ShowCredits() {
+      Console.WriteLine("Gabriele — September 2020");
+    }
+}
+
+static class Game {
+  public static void ShowInfo() {
+    Console.WriteLine("A class describing a game-to-be. Or just a static class.");
+  }
+}
+```
+
+## Inheritance
+
+Inherit the functionality of a class in the definition of a separate class.
+
+```cs
+class Hero : Character {
+  public Hero(string argName, bool argIsEnemy, int argHp) : base(argName, argIsEnemy, argHp) {
+  }
+
+}
+```
+
+Any attribute/method available on the inherited class is then available on the inheriting entity.
+
+```cs
+Hero hero = new Hero("Timothy", false, 20);
+```
+
+### Override
+
+To override the attributes/methods of a class, it's necessary to include two keywords.
+
+- in the inherited class, describe the attributes/methods as `virtual`
+
+  ```cs
+  public virtual void SaySomething() {
+    Console.WriteLine("I'm a simple character.");
+  }
+  ```
+
+- in the inheriting class, override on the values with `override`
+
+  ```cs
+  public override void SaySomething() {
+    Console.WriteLine("I'm a hero to-be.");
+  }
+  ```
+
+### Snippet
+
+```cs
+// experiment with inheritance
+using System;
+
+class MainClass {
+  public static void Main (string[] args) {
+    Character slime = new Character("Blue slime", true, 5);
+    Hero hero = new Hero("Timothy", false, 20);
+
+    slime.SaySomething();
+    Console.WriteLine(hero.name);
+    hero.SaySomething();
+  }
+}
+
+class Character {
+    public static string author = "Gabriele";
+
+    public string name;
+    public bool isEnemy;
+    public int hp;
+
+    public Character(string argName, bool argIsEnemy, int argHp) {
+      name = argName;
+      isEnemy = argIsEnemy;
+      hp = argHp;
+    }
+
+    public bool IsAlive() {
+      return hp > 0;
+    }
+
+    public void hit(int damage) {
+      if(hp > 0) {
+        hp = Math.Max(hp - damage, 0);
+      }
+    }
+
+    public virtual void SaySomething() {
+      Console.WriteLine("I'm a simple character.");
+    }
+}
+
+class Hero : Character {
+  public Hero(string argName, bool argIsEnemy, int argHp) : base(argName, argIsEnemy, argHp) {
+  }
+
+  public override void SaySomething() {
+    Console.WriteLine("I'm a hero to-be.");
   }
 }
 ```

@@ -1,12 +1,12 @@
-# C# Tutorial - Full Course for Beginners
+## [C# documentation](https://docs.microsoft.com/en-us/dotnet/csharp/)
 
-## Resources
+### [Hello World](https://docs.microsoft.com/en-us/dotnet/csharp/tutorials/intro-to-csharp/hello-world)
 
-- [Video Course](https://youtu.be/GhQdlIFylQ8)
+## [C# Tutorial - Full Course for Beginners](https://youtu.be/GhQdlIFylQ8)
 
-- [REPL to experiment with the code](https://repl.it/@borntofrappe/beginnerluck)
+I've created a [REPL](https://repl.it/@borntofrappe/beginnerluck) to experiment with the code as well.
 
-## Getting started
+### Getting started
 
 ```cs
 // hello world
@@ -23,7 +23,7 @@ Always remember to add a semi-colon at the end of every line of instruction.
 
 The code is executed in order, and starting from the `Main` method.
 
-## Variables
+### Variables
 
 - variables always need a type
 
@@ -47,7 +47,7 @@ The code is executed in order, and starting from the `Main` method.
   number = 12;
   ```
 
-### Snippet
+#### Snippet
 
 ```cs
 //  write information based on two variables
@@ -66,7 +66,7 @@ class MainClass {
 }
 ```
 
-## Data Types
+### Data Types
 
 - `string`: plain text
 
@@ -78,7 +78,7 @@ class MainClass {
 
 - `bool`: boolean, with two possible values `true` and `false`
 
-### Snippet
+#### Snippet
 
 Use double quotes `"` to describe a string.
 
@@ -105,7 +105,7 @@ class MainClass {
 }
 ```
 
-## Strings
+### Strings
 
 Strings are wrapped in double quotation marks, `"`
 
@@ -117,7 +117,7 @@ Access individual characters on the basis of their index: `string[index]`. c-sha
 
 Obtain the length of a string through the `Length` attribute: `string.Length`.
 
-### Helpful methods
+#### Helpful methods
 
 | string                      | Returns                                                                         |
 | --------------------------- | ------------------------------------------------------------------------------- |
@@ -128,7 +128,7 @@ Obtain the length of a string through the `Length` attribute: `string.Length`.
 | `.Substring(index)`         | A string starting at the specified index                                        |
 | `.Substring(index, length)` | A string starting at the specified index, and ending after the specified length |
 
-### Snippet
+#### Snippet
 
 ```cs
 // use methods to work on an input string
@@ -149,7 +149,7 @@ class MainClass {
 }
 ```
 
-## Numbers
+### Numbers
 
 Mathematical operations follow the standard convention of using the plus sign `+` for addition, dash character `-` for subtraction, forward slash for division `/`, asterisk for multiplication `*`.
 
@@ -169,7 +169,7 @@ The `Math` modulo provides several helpful methods.
 | `Max(num1, num2)`     | The larger between the input numbers     |
 | `Round(num)`          | An integer rounding to the nearest digit |
 
-### Snippet
+#### Snippet
 
 The result of a mathematical operation is an integer only if both operators are integers.
 
@@ -191,7 +191,7 @@ class MainClass {
 }
 ```
 
-## User input
+### User input
 
 `Console.ReadLine()` has the console wait for user input. The function then returns the input in the form of a string.
 
@@ -201,7 +201,7 @@ string name = Console.ReadLine();
 Console.WriteLine("Nice to meet you, " + name);
 ```
 
-### Snippet
+#### Snippet
 
 `Convert` provides helper functions to coerce a value into a different type. In the specific snippet, `ToInt32` converts the input string into an integer.
 
@@ -221,7 +221,7 @@ class MainClass {
 }
 ```
 
-## Demo — Calculator
+### Demo — Calculator
 
 Build a script which takes two numbers from the user and returns their sum, subtraction, multiplication, division and remainder.
 
@@ -259,7 +259,7 @@ Without parenthesis, the console displays the following error:
 error CS0019: Operator `-' cannot be applied to operands of type `string' and `double'
 ```
 
-## Arrays
+### Arrays
 
 Store multiple values in curly brackets.
 
@@ -283,7 +283,7 @@ It's possible to initialize an array without specifying its values, but it's alw
 int [] numbers = new int[10];
 ```
 
-### Snippet
+#### Snippet
 
 ```cs
 // collect three integers in an array
@@ -307,7 +307,7 @@ class MainClass {
 }
 ```
 
-## Methods
+### Methods
 
 Following the `Main` method, define methods to create reusable chunks of code.
 
@@ -329,7 +329,7 @@ public static void Main (string[] args) {
 }
 ```
 
-### Parameters
+#### Parameters
 
 A method is able to accept input in the form of arguments.
 
@@ -347,7 +347,7 @@ static void SayHi(string name) {
 }
 ```
 
-### return
+#### return
 
 A method is able to return data using the `return` keyword. It is necessary to update the method definition by describing the type returned by the function.
 
@@ -359,7 +359,7 @@ static int Sum(int num1, int num2) {
 
 In this instance, the function returns an integer, `int`. If a function doesn't return anything, use the `void` keyword.
 
-### Snippet
+#### Snippet
 
 ```cs
 // define and use a couple of methods
@@ -389,7 +389,7 @@ class MainClass {
 }
 ```
 
-## if
+### if
 
 Execute a block of code only if a condition results to `true`.
 
@@ -441,7 +441,7 @@ With the double vertical slash character `||`, check if at least one of the cond
 | false      | true       | true  |
 | false      | false      | false |
 
-## Demo — Calculator v1
+### Demo — Calculator v1
 
 Build a script which takes as input two operands, as well as an operator. Use `if` statements to compute the operation described by these elements.
 
@@ -483,7 +483,7 @@ class MainClass {
 
 It's important to note that in c-sharp `operator` has a specific meaning, and represents a reserved identifier. Following the suggestion found [in the Microsoft Documentation](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/), the `@` prefix allows to provide a valid alternative.
 
-## switch
+### switch
 
 Execute the block of code where the input matches a specific value.
 
@@ -503,7 +503,7 @@ switch(input) {
 
 The instructions specified in the `default` instance are run if no match is found earlier in the loop.
 
-### Snippet
+#### Snippet
 
 ```cs
 // describe the percentage for letter grades
@@ -538,7 +538,7 @@ class MainClass {
 }
 ```
 
-## while
+### while
 
 Execute a block of code as long as a condition resolves to `true`.
 
@@ -548,7 +548,7 @@ while(condition) {
 }
 ```
 
-### do while
+#### do while
 
 Execute a block of code at least once, and before checking for a `while` condition.
 
@@ -558,7 +558,7 @@ do {
 } while(condition);
 ```
 
-## Demo — Guessing game
+### Demo — Guessing game
 
 Build a script which lets the user guess a number in a given range. Provide a fixed number of guesses, as well as hints regarding the number.
 
@@ -602,7 +602,7 @@ class MainClass {
 }
 ```
 
-## for
+### for
 
 Execute a block of code for a determined number of times.
 
@@ -613,7 +613,7 @@ for(int i = 1; i < 5; i++) {
 }
 ```
 
-### Snippet
+#### Snippet
 
 ```cs
 // print half a pyramid with asterisk characters
@@ -639,7 +639,7 @@ class MainClass {
 }
 ```
 
-## 2D Arrays
+### 2D Arrays
 
 Initialize multidimensional arrays adding a comma `,` in the square brackets.
 
@@ -669,7 +669,7 @@ int[,] grid = {
 grid[1, 0]; // 4
 ```
 
-### Snippet
+#### Snippet
 
 `Length` provides the length of the array in terms of the number of items it contains. To find the length of a nested array, use `GetLength()` and specify the dimension in between parenthesis.
 
@@ -698,7 +698,7 @@ class MainClass {
 }
 ```
 
-## Comments
+### Comments
 
 Text that is not executed by the compiler.
 
@@ -712,7 +712,7 @@ Text that is not executed by the compiler.
 */
 ```
 
-## Exception handling
+### Exception handling
 
 Consider errors before they happen, so to prevent the program from stopping altogether.
 
@@ -754,7 +754,7 @@ finally {
 }
 ```
 
-### Snippet
+#### Snippet
 
 ```cs
 // attempt to divide an integer
@@ -789,7 +789,7 @@ class MainClass {
 }
 ```
 
-## Classes and objects
+### Classes and objects
 
 Through classes the c-sharp language essentially allows to create a new type of value.
 
@@ -814,7 +814,7 @@ Main() {
 }
 ```
 
-### Snippet
+#### Snippet
 
 ```cs
 // build a classs and highlight the attributes of an object
@@ -840,7 +840,7 @@ class Character {
 }
 ```
 
-## Constructor
+### Constructor
 
 Instead of specifying the attributes line by line, a constructor methods allows to build an object by passing arguments in between parenthesis.
 
@@ -880,7 +880,7 @@ public Character(string name, bool isEnemy, int hp) {
 
 In this manner it's possible to create an instance with different calls. In the specific instance by specifying zero or three arguments.
 
-### Snippet
+#### Snippet
 
 ```cs
 // build a classs with a constructor method
@@ -909,7 +909,7 @@ class Character {
 }
 ```
 
-## Object methods
+### Object methods
 
 A class is able to define variables, but also its own functions.
 
@@ -925,7 +925,7 @@ In the body of the `Main` class then, the method is called directly from the obj
 slime.IsAlive();
 ```
 
-### Snippet
+#### Snippet
 
 ```cs
 // add methods to the Character class
@@ -966,7 +966,7 @@ class Character {
 }
 ```
 
-## Getters and setters
+### Getters and setters
 
 Control access to the attributes of a class.
 
@@ -1011,7 +1011,7 @@ Console.WriteLine(slime.Exp); // 10
 
 And to retrieve the value use the property with the capital initial.
 
-### Snippet
+#### Snippet
 
 ```cs
 // experiment with a property with setter and getter methods
@@ -1056,7 +1056,7 @@ class Character {
 }
 ```
 
-## Static attributes
+### Static attributes
 
 The `static` keyword allows to define variables on the class instead of its instances.
 
@@ -1072,7 +1072,7 @@ Not available on the instances of the class, but only the class itself (Although
 Character.author; // "Gabriele"
 ```
 
-## Static methods
+### Static methods
 
 Similarly to static attributes, static methods are available on the class instead of its objects. One example comes from the `Math` class, introduced earlier; here, `Math.Sqrt(144)` is a static method.
 
@@ -1084,7 +1084,7 @@ class Character {
 }
 ```
 
-## Static class
+### Static class
 
 A static class is a which cannot create instances. Once again, the `Math` class provides an example; here, it's not possible to create an instance as in `new Math()`.
 
@@ -1096,7 +1096,7 @@ static class Game {
 }
 ```
 
-### Snippet
+#### Snippet
 
 ```cs
 // experiment with the static keyword
@@ -1138,7 +1138,7 @@ static class Game {
 }
 ```
 
-## Inheritance
+### Inheritance
 
 Inherit the functionality of a class in the definition of a separate class.
 
@@ -1156,7 +1156,7 @@ Any attribute/method available on the inherited class is then available on the i
 Hero hero = new Hero("Timothy", false, 20);
 ```
 
-### Override
+#### Override
 
 To override the attributes/methods of a class, it's necessary to include two keywords.
 
@@ -1176,7 +1176,7 @@ To override the attributes/methods of a class, it's necessary to include two key
   }
   ```
 
-### Snippet
+#### Snippet
 
 ```cs
 // experiment with inheritance

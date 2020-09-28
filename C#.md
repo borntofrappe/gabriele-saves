@@ -1,7 +1,3 @@
-## [C# documentation](https://docs.microsoft.com/en-us/dotnet/csharp/)
-
-### [Hello World](https://docs.microsoft.com/en-us/dotnet/csharp/tutorials/intro-to-csharp/hello-world)
-
 ## [C# Tutorial - Full Course for Beginners](https://youtu.be/GhQdlIFylQ8)
 
 I've created a [REPL](https://repl.it/@borntofrappe/beginnerluck) to experiment with the code as well.
@@ -1230,3 +1226,270 @@ class Hero : Character {
   }
 }
 ```
+
+## [C# documentation](https://docs.microsoft.com/en-us/dotnet/csharp/)
+
+### [Hello World](https://docs.microsoft.com/en-us/dotnet/csharp/tutorials/intro-to-csharp/hello-world)
+
+```cs
+Console.WriteLine("Hello, World!");
+```
+
+#### Strings
+
+- _string interpolation_ provides a more convenient way to inject variables inside of a string.
+
+  - wrap the variable between curly braces `{}`
+
+  - introduce the string with a dollar sign `$`
+
+  ```cs
+  string aFirstName = "Timothy";
+  string aLastName = "Beroix";
+  // "Hello " + aFirstName + " " + aLastName + "."
+  Console.WriteLine($"Good day, {aFirstName} {aLastName}.");
+  ```
+
+- strings have properties and methods, accessible following a `.` dot on the string.
+
+  ```cs
+  string aFirstName = "Timothy";
+  string aLastName = "Beroix";
+  string message = $"Good day, {aFirstName} {aLastName}.";
+  Console.WriteLine(message.Length); // 27
+  ```
+
+- methods return a new string rather than modifying the string in-place
+
+  ```cs
+  string greeting = "Hello      ";
+  string name = "     Timothy";
+  Console.WriteLine($"{greeting.TrimEnd().Replace("ello", "ola").ToUpper()}, {name.TrimStart()}");
+  ```
+
+- replace text in a string using `.Replace()`. Search text using `.Contains()`. This last one returns a boolean describing whether a match was found.
+
+  ```cs
+  string greeting = "Hello";
+  Console.WriteLine(greeting.ToLower().StartsWith("hell"));
+  ```
+
+  `StartsWith()` and `EndWidth()` perform a similar operation, but looking at the beginning or end of the string.
+
+#### Numbers
+
+- _Integer division always produces an integer result_
+
+  ```cs
+  int a = 12;
+  int b = 7;
+  Console.WriteLine(a / b); // 1
+  ```
+
+- integers have a limited range
+
+  ```cs
+  Console.WriteLine($"[{int.MinValue}, {int.MaxValue}]"); // -2147483648, 2147483647
+  ```
+
+  Exceed the range and the compiler describes a _overflow_ or _underflow_.
+
+  ```cs
+  Console.WriteLine($"{int.MinValue - 10}"); // (4,22): error CS0220: The operation overflows at compile time in checked mode
+  ```
+
+  If you were to compute outside of the range, the result would _wrap around_ and provide the answer in the opposite range.
+
+  ```cs
+  int min = int.MinValue;
+  int wrap = min - 10;
+  Console.WriteLine($"{min} - {10} = {wrap} ?"); // -2147483648 - 10 = 2147483638 ?
+  ```
+
+- floating point numbers describe non-integral numbers. The `float` type has single-precision, while `double` type has double-precision. This corresponds to a different range.
+
+  ```cs
+  Console.WriteLine($"[{float.MinValue}, {float.MaxValue}]"); // [-3.402823E+38, 3.402823E+38]
+  ```
+
+  ```cs
+  Console.WriteLine($"[{double.MinValue}, {double.MaxValue}]"); // [-1.79769313486232E+308, 1.79769313486232E+308]
+  ```
+
+  The `decimal` type has a smaller range.
+
+  ```cs
+  Console.WriteLine($"[{decimal.MinValue}, {decimal.MaxValue}]"); // [-79228162514264337593543950335, 79228162514264337593543950335]
+  ```
+
+  In exchange, the `decimal` type has greater precision than `double`.
+
+  ```cs
+  double a = 1;
+  double b = 3;
+  Console.WriteLine(a / b); // 0.333333333333333
+
+  decimal c = 1M;
+  decimal d = 3M;
+  Console.WriteLine(c / d); // 0.3333333333333333333333333333
+
+  ```
+
+  Note that you need to add the suffix `M` to convert to type `decimal`. Fail to do that, and you'll prompt the following error.
+
+  ```code
+  error CS0664: Literal of type double cannot be implicitly converted to type 'decimal'; use an 'M' suffix to create a literal of this type
+  ```
+
+#### Branches and loops
+
+- indentation is not significant (although it helps to digest the code)
+
+  ```cs
+  int answer = 10;
+
+  if (answer > 10) Console.WriteLine("Answer is greater than 10");
+  // same as
+  if (answer > 10)
+      Console.WriteLine("Answer is greater than 10");
+  ```
+
+- curly braces help to wrap blocks of code
+
+  ```cs
+  int answer = 10;
+
+  if (answer > 10) {
+    Console.WriteLine("Answer is greater than 10");
+    Console.WriteLine("And that's it");
+  }
+  else {
+    Console.WriteLine("Answer is less than 10");
+  }
+  ```
+
+  They are unnecessary in certain situations, like when you have a single block (although they help to digest the code).
+
+  ```cs
+  if (answer > 10)
+    Console.WriteLine("Answer is greater than 10");
+    Console.WriteLine("Answer is greater than 10");
+  ```
+
+- C# offers `while`, `do while`, `for` loops to execute code multiple times
+
+  ```cs
+  int counterWhile = 0;
+  while(counterWhile < 3) {
+      Console.WriteLine(counterWhile);
+      counterWhile++;
+  }
+
+  int counterDo = 3;
+  do {
+      Console.WriteLine(counterDo);
+  } while (counterDo < 3);
+
+  for(int counterFor = 2; counterFor >= 0; counterFor--) {
+      Console.WriteLine(counterFor);
+  }
+  ```
+
+  Beyond these structures, you find also `forEach`, to loop through the items of a collection.
+
+  ```cs
+  int [] numbers = {1, 2, 3, 4, 12};
+  foreach(int i in numbers) {
+      Console.WriteLine(i);
+  }
+  ```
+
+#### Lists
+
+- build a list as a general collection of data
+
+  ```cs
+  var numbers = new List<int> {10, 2, 3, 12};
+  foreach(var number in numbers) {
+      Console.WriteLine($"Number: {number}");
+  }
+  ```
+
+  You always need to specify the type of the list, as in `List<type>`, btween angle brackets
+
+- modify the list to add, remove items with the `.Add()` and `.Remove()` methods respectively
+
+  ```cs
+  var numbers = new List<int> {10, 2, 3, 12, 12};
+  numbers.Remove(12);
+  numbers.Add(32);
+  ```
+
+  _Be warned_: `.Remove()` removes only the first instance it finds, while `.Add()` adds the new value at the end of the list
+
+- reference individual items by index
+
+  ```cs
+  Console.WriteLine($"Third number: {numbers[2]}");
+  ```
+
+  Exceeding the length of the collection prompts the following exceptions
+
+  ```code
+  System.ArgumentOutOfRangeException: Index was out of range. Must be non-negative and less than the size of the collection
+  ```
+
+- discover the number of items through the `Count` property
+
+  ```cs
+  Console.WriteLine($"How many numbers? {numbers.Count}");
+  ```
+
+- search in a list with the `.IndexOf` method
+
+  ```cs
+  Console.WriteLine($"12's position: {numbers.IndexOf(12)}");
+  ```
+
+  It returns the index of the item, or `-1`.
+
+- sort a list alphabetically or in ascending order with `.Sort()`
+
+  ```cs
+  var numbers = new List<int> {10, 2, 3, 12};
+  numbers.Sort();
+  foreach(var number in numbers) {
+      Console.WriteLine($"Number: {number}");
+  }
+  ```
+
+  _Be warned_: the method modifies the list in place.
+
+#### Snippets
+
+Code created for the challenges found in the docs.
+
+- combine branch and loops
+
+  ```cs
+  int sum = 0;
+  for(int i = 1; i <= 20; i++) {
+      if(i % 3 == 0) {
+          sum = sum + i;
+      }
+  }
+
+  Console.WriteLine($"The sum of al integers 1 through 20 that are divisible by 3 is {sum}");
+  ```
+
+- the first 20th Fibonacci's number
+
+  ```cs
+  var fibNumbers = new List<int> {1, 1};
+
+  while(fibNumbers.Count < 20) {
+      fibNumbers.Add(fibNumbers[fibNumbers.Count - 1] + fibNumbers[fibNumbers.Count - 2]);
+  }
+
+  Console.WriteLine($"20th: {fibNumbers[fibNumbers.Count - 1]}");
+  ```

@@ -1,8 +1,6 @@
 ## Programming in Lua
 
-The first edition on _Programming in Lua_ is [available online](https://www.lua.org/pil/contents0.html)
-
-The [official website](https://www.lua.org/) also provides a [demo environment](https://www.lua.org/cgi-bin/demo)
+The first edition of _Programming in Lua_ is [available online](https://www.lua.org/pil/contents0.html). The [official website](https://www.lua.org/) also provides a [demo environment](https://www.lua.org/cgi-bin/demo). That being said, what follows is a rationalization of the book in its fourth edition.
 
 ### Getting started
 
@@ -16,7 +14,7 @@ Be it a statement.
 print("Hello there")
 ```
 
-Or a series of statements and expressions.
+Or a series of statements and function definitions.
 
 ```lua
 function factorial(n)
@@ -36,8 +34,6 @@ print(factorial(num))
 
 You name variables with letters, digits, underscores, but you don't start a variable with a digit.
 
-There are reserved words, such as `end`
-
 ```lua
 name = "Thessa"
 age = 32
@@ -45,6 +41,8 @@ is_sunny = false
 
 SECRET_CODE_5763 = 123412
 ```
+
+Like many languages however, you cannot use a set of words, which have a particular meaning. Consider for instance `end`, `if`, or again `for`.
 
 #### Comments
 
@@ -74,7 +72,7 @@ _Nifty_: write multiline comments as follows:
 --]]
 ```
 
-This makes it easier to uncomment the nested code: add a hyphen to the first line.
+This makes it easier to uncomment the nested code. Add a hyphen to the first line and you end up with two inline comments. In this situation the code is then executed.
 
 ```lua
 ---[[
@@ -83,11 +81,9 @@ This makes it easier to uncomment the nested code: add a hyphen to the first lin
 --]]
 ```
 
-You end up with two inline comments, and the code is executed.
+#### Separator
 
-#### Line breaks
-
-Lua does not need to have statements in new lines. You can separate statements with white space.
+Lua does not need a separator between statements. You can separate statements with white space.
 
 ```lua
 a = 12 b = 1 a + b
@@ -131,7 +127,7 @@ end
 You don't need to declare global variables. These are however `nil` by default.
 
 ```lua
-name -- nil
+print(name) -- nil
 ```
 
 You can also assign the specific `nil` value yourself.
@@ -143,88 +139,92 @@ name = nil
 _Be warned_: while global variables mean you have more freedom in the way you write code, accessing a field from a table that is not declared will result in an error (more on tables soon).
 
 ```lua
-person.name -- error
+print(name) -- nil
+print(person.name) -- attempt to index a nil value
 ```
 
-#### Types
+#### Types and values
 
 Lua is dynamically typed. You don't need specify the type ahead of time. With this in mind, the language describes the following eight types:
 
-1. nil
+1. **nil**
 
-   This is a type with a single value: `nil`
+   This is a type with a single value: `nil`. As mentioned in an earlier section, it describes unassigned variables, but it can also be assigned to a variable.
 
-2. boolean
+2. **boolean**
 
    In this category you find two values: `true` and `false`. They are useful in the context of boolean logic.
 
-   _Be warned_: in lua only two values return `false`: `false` and `nil`. Anything else, including `0` and `" "` empty strings is considered `true`
+   _Be warned_: in lua only two values return `false`: `false` and `nil`. Anything else, including `0` and `" "` empty strings is considered `true`.
 
-   You can use the `and`, `or` operators, and this last one is handy to initialize variables.
+   You can use the `and`, `or` operators for conditional logic.
+
+   _Nifty_: use `or` to initialize variables with a default value.
 
    ```lua
    name = text or "timothy"
+   --[[ equivalent to
+      if text then
+         name = text
+      else
+         name = "timothy"
+      end
+   ]]
    ```
 
-3. number
+3. **number**
 
    Numbers come in two variety, integers and float. In terms of type, they are both described by `number`
 
-4. string
+4. **string**
 
    Anything between quotes
 
-5. function
+5. **function**
 
    Reusable chunks of code, introduced by the keyword function
 
-6. table
+6. **table**
 
    Data structure introduced by curly braces `{}`
 
-7. thread
-
-   ???
-
-8. userdata
-
-   ???
+You find also a `thread` and `userdata` type. These will be covered if necessary and in future sections (threads have to do with _coroutines_ and userdata with the _C API_).
 
 Use the `type()` function to return a string describing the type.
 
 ```lua
-type(name) -- nil
-type(type(name)) -- string
+print(type(name)) -- nil
+print(type(type(name))) -- string
 ```
 
 ### Numbers
 
-As hinted above, but only with **Lua 5.3**, numbers have two representations:
+As hinted above, but only with **Lua 5.3**, numerals have two representations:
 
 - integers (64-bit integers)
 
 - float (double-precision floating-point numbers)
 
-The `type` function will always describe `number`, but this distinction impacts the way numbers are stored.
+The distinction impacts the way numbers are stored, but not the type returned by the `type` function.
 
 ```lua
-type(3) -- number
-type(3.0) -- number
+print(type(3)) -- number
+print(type(3.0)) -- number
 ```
 
-In terms of equality, the `==` operator compares only the value. This means integers and floats match if they share the same measure.
+In terms of equality, the `==` operator also considers the type `number`. This means integers and floats match if they share the same measure.
 
 ```lua
-3 == 3.0 -- true
+print(3 == 3.0) -- true
 ```
 
-To distinguish between the two, use `math.type` (again only with Lua 5.3)
+To distinguish between the two, use `math.type` (again only with Lua 5.3).
 
 ```lua
-math.type(3) == math.type(3.0) -- false
+print(math.type(3) == math.type(3.0)) -- false
 
-math.type(3) -- integer
-math.type(3.0) -- float
+print(math.type(3)) -- integer
+print(math.type(3.0)) -- float
 ```
 
 #### Arithmetic operators
@@ -243,27 +243,27 @@ Lua offers familiar arithmetic operators.
 Moreover, Lua supports modulo, exponentiation, and floor division. This last one however, only with **Lua 5.3**.
 
 ```lua
-13 % 5 -- 3
-2 ^ 3 -- 8
+print(13 % 5) -- 3
+print(2 ^ 3) -- 8.0
 
-13 // 5 -- 2
+print(13 // 5) -- 2
 ```
 
 _Nifty_: with real numbers, the modulo operator allows to compute a number with a given precision with the following syntax
 
 ```lua
-v = 2.8498465486
-print(v - v % 0.1) -- 2.8
-print(v - v % 0.01) -- 2.84
-print(v - v % 0.001) -- 2.849
-print(v - v % 0.0001) -- 2.8498
+pi = 3.1415926535897
+print(pi - pi % 0.1) -- 3.1
+print(pi - pi % 0.01) -- 3.14
+print(pi - pi % 0.001) -- 3.141
+print(pi - pi % 0.0001) -- 3.1415
 ```
 
 In terms of type:
 
-- division will always return a float
+- division and exponent will always return a float
 
-- operations different from division will return an integer **only if** both operands are integers. Else, they will return a float (this by coerciing the integer to a float before the operation).
+- operations different from division will return an integer **only if** both operands are integers. Else, they will return a float (this by coercing the integer to a float before the operation).
 
 #### Relational operators
 
@@ -271,8 +271,8 @@ In terms of type:
 
 These always produce a boolean. Comparison happens by type.
 
-```
-3 == "3" -- false
+```lua
+print(3 == "3") -- false
 ```
 
 #### Math library
@@ -289,7 +289,7 @@ The standard `math` library comes with a set of functions.
 
 - with two integers, an integer in the `[m, n]` range
 
-It uses a given seed, so that ultimately, it will return the same sequence of numbers. Set a different seed to change the way random numbers are computed. For instance using the current time:
+_Be warned_: `math.random` uses a given seed, so that ultimately, it will return the same sequence of numbers. Set a different seed to change the way random numbers are generated. For instance using the current time:
 
 ```lua
 math.randomseed(os.time())
@@ -297,11 +297,11 @@ math.randomseed(os.time())
 
 To round numbers Lua offers three alternatives:
 
-- floor
+- `.floor()`
 
-- ceil
+- `.ceil()`
 
-- modf
+- `.modf()`
 
 `math.modf` rounds toward 0, and returns two results:
 
@@ -317,7 +317,7 @@ print(math.modf(3.25)) -- 3	0.25
 
 From int to float, add `0.0`.
 
-From float to int, use rounding functions, or again `math.tointeger()`. This one returns `nil` if the conversion is not possible.
+From float to int, use rounding functions, or again `math.tointeger()`.
 
 ```lua
 print(3 + 0.0) -- 3.0
@@ -325,25 +325,27 @@ print(math.floor(3.0)) -- 3
 print(math.tointeger(3.0)) -- 3
 ```
 
+_Nifty_: `math.tointeger` returns `nil` if the conversion is not possible. This means you can use the function to test if a conversion is possible.
+
 #### Precedence
 
 Lua follows an order, but you can change the default through parentheses `()`
 
 ### Strings
 
-Strings are immutable. Return a different string if need be.
+String represent text. They are wrapped between quotes, single or double, and are immutable in value.
 
 ```lua
 "you say hello"
 ```
 
-Lua provides a `string` library with a few helper methods (more on this soon). Moreover, it allows to describe the length of a string with the length operator `#` (counting happens in bytes, and might lead to unexpected results with some encodings)
+Lua provides a `string` library with a few helper methods (more on this soon). Moreover, it allows to describe the length of a string with the length operator `#` (counting happens in bytes, and might lead to unexpected results with some encodings).
 
 ```lua
-print(#"Hello")
+print(#"Hello") -- 5
 ```
 
-The `..` concatenation operator allows to add two strings together.
+The concatenation operator `..` allows to add two strings together.
 
 ```lua
 print("Hello " .. "there")
@@ -359,8 +361,6 @@ print("Favorite number is " .. num) -- "Favorite number is 3"
 print(type(num .. num)) -- string
 ```
 
-You can use single or double quotes.
-
 You escape characters with a backslash character: `\n`
 
 You can use double square brackets to wrap strings on multiple lines.
@@ -368,12 +368,14 @@ You can use double square brackets to wrap strings on multiple lines.
 ```lua
 text = [[
    this is a longer piece of text
-
+   and this is shorter
 ]]
 print(text)
 ```
 
-With regards to the double square brackets, both for long strings and for comments, you might need to include square brackets within the two wrapping sets.
+_Be warned_: the whitespace between brackets is respected.
+
+With regards to the double square brackets, both for multi-line strings and for comments, you might need to include square brackets within the two wrapping sets.
 
 Lua provides a handy syntax to customize the beginning/end set
 
@@ -401,7 +403,7 @@ print(4 .. 7) -- "47"
 
 Do not rely on thus feature however. It's considered as a "second class" feature of Lua.
 
-- use `tonumber` instead. Returning a number or `nil` if the conversion is not possible.
+- from string to number, use `tonumber`. The function returns a number or `nil` if the conversion is not possible.
 
   ```lua
   tonumber("4")
@@ -409,11 +411,11 @@ Do not rely on thus feature however. It's considered as a "second class" feature
   tonumber("fff", 16)
   ```
 
-  The optional second argument specifies the base (decimal by default)
+  The optional second argument specifies the base (decimal by default).
 
-- use `tostring` instead. With `string.format` for the specific number of decimal points.
+- from number to strubg use `tostring`. `string.format` provides additional features and is covered in a later section.
 
-Ordeer operators never coerce their arguments, and lua raises an error if the two operands are mixed.
+_Be warned_: order operators never coerce their arguments, and lua raises an error if the two operands are mixed.
 
 ```lua
 "4" < 12 -- errors out
@@ -421,69 +423,106 @@ Ordeer operators never coerce their arguments, and lua raises an error if the tw
 
 #### string library
 
-String manipulation comes from the `string` library
+String manipulation comes from the `string` library.
+
+- find the length of a string
+
+  ```lua
+  s = "hello, world"
+  print(string.len(s)) -- 12
+  ```
+
+- repeat a string `n` times
+
+  ```lua
+  s = "hello, world"
+  n = 2
+  print(string.rep(s, n)) -- hello, worldhello, world
+  ```
+
+- reverse a string
+
+  ```lua
+  s = "hello, world"
+  print(string.reverse(s)) -- dlrow ,olleh
+  print(s) -- hello, world
+  ```
+
+- return an uppercase/lowercase string
+
+  ```lua
+  s = "hello, world"
+  print(string.upper(s)) -- HELLO, WORLD
+  ```
+
+- retrive a substring in a given `[i, j]` range
+
+  ```lua
+  s = "hello, world"
+  i = 1
+  j = 4
+  print(string.sub(s, i, j)) -- hell
+  ```
+
+_Be warned_: with regards to the index, lua consider the first character to have a index of `1`. Negative values start from the end.
+
+In `string.format` you find a powerful tool to format text and converting numbers to string.
+
+It works similar to the C language, where arguments are injected in place of certain keywords (directives like `%d`, `%f`, `%s`).
 
 ```lua
-string.len(s)
-string.rep(s, n) -- repeats
-string.reverse(s)
-string.upper(s)
-string.lower(s)
-string.sub(s, i, j) -- extracts string from [i, j]
-string.char(b) -- convert to character
-string.byte(c) -- convert to numeric representation
+print(string.format("x = %d", 10)) -- x = 10
 ```
 
-With regards to the index, lua consider the first character to have a index of `1`. Negative values start from the end.
-
-With string.byte you can provide the numerical representation of a specific character or even multiple characters
+Following the `%` character, you have also more control on the details of the formatting. For instance, on the number of decimal points.
 
 ```lua
-string.byte(s, i)
-string.byte(s, i, j)
+print(string.format("x = %.4f", 10)) -- 10.0000
 ```
 
-In `string.format` you find a powerful tool to format text and converting numbers to string
-
-It works similar to C, with directives specifying arguments (%d, %f, %s) replaced in the formatted string
+On the padding added before a number.
 
 ```lua
-string.format("x = %d", 10)
+print(string.format("x = %3d", 5)) -- "  5"
+print(string.format("x = %02d", 5)) -- "05"
 ```
 
-- `d`, decimal
+Finally, and for pattern matching, lua offers `string.find` and `string.gsub` (global substitution).
 
-- `f`, float
-
-- `x`, hex
-
-- `s`, string
-
-Following the `%` character you have also more control on the details of the formatting. For instance, on the number of decimal points, on the padding added before a number
+`find` returns `nil` or the index describing the beginning/end of the first match.
 
 ```lua
-string.format("x = %.4f", 10)
-string.format("x = %3d", 5) -- "  5"
-string.format("x = %02d", 5) -- "05"
+s = "hello, world"
+p = "l"
+print(string.find(s, "l")) -- 3   3
 ```
 
-Refer to C and `printf`
-
-Finally, and for pattern matching, lua offers `string.find` and `string.gsub` (global substitution)
+`gsub` replaces all instances of the pattern `x` with the string `y`.
 
 ```lua
-string.find(s, p) -- nil or the indexes describing the position of the pattern (beginning and end)
-
-
-string.gsub(s, x, y) -- replaces all instances of x with y
--- returns the new string, but also the number of replacements made
+s = "hello, world"
+x = "hello"
+y = "goodbye"
+print(string.gsub(s, x, y)) -- goodbye, world	1
 ```
 
-The **colon operator** allows to use the functions without need to specify the library (discussed more in the object-oriented programming chapter)
+_Nifty_: as spotted in the previous snippet, `gsub` returns the index of the string where the substitution takes place. This is useful in the moment the function is not able to replace a string.
 
 ```lua
-string.upper(s)
-s:upper()
+s = "hello, world"
+x = "monday"
+y = "goodbye"
+print(string.gsub(s, x, y)) -- hello, world	0
+```
+
+#### colon operator
+
+The colon operator `:` allows to use the functions from a library without specifying the library itself. This is discussed in more details in the section covering object-oriented programming.
+
+```lua
+s = "hello, world"
+-- print(string.upper(s))
+print(s:upper())
 ```
 
 ### Tables

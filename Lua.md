@@ -817,3 +817,119 @@ Similarly with strings and the string library, the table library provides useful
   print(#numbers) -- 2
   print(num) -- 1
   ```
+
+### Functions
+
+Reusable chunks of code:
+
+- statements, executing a specific task
+
+  ```lua
+  function sayHello(toWhom)
+     print("Hello " .. toWhom)
+
+  end
+
+  sayHello('Timothy')
+  ```
+
+- expressions, computing and returning values
+
+  ```lua
+  function buildSequence(length)
+     local sequence = {}
+     for i = 1, length do
+        sequence[i] = i
+     end
+
+     return sequence
+  end
+
+  s = buildSequence(10)
+  ```
+
+The more general syntax of a function can be summed up as follows:
+
+```lua
+function name(parameters)
+   -- body
+end
+```
+
+_Nifty_: lua is quite forgiving when a function is called with more/less arguments than necessary.
+
+With more, it disregards the additional values.
+
+```lua
+function sumSquared(num1, num2)
+   return (num1 + num2) ^ 2
+end
+
+print(sumSquared(10, 2, "hello"))-- 144
+
+```
+
+With less, the arguments are set to `nil`
+
+```lua
+function printSomething(something)
+   print(something)
+end
+
+printSomething() -- nil
+```
+
+#### Multiple returns
+
+Lua functions are able to return more than a single value.
+
+```lua
+CELL_SIZE = 10
+function pointToTile(x, y)
+   column = math.floor(x / CELL_SIZE) + 1
+   row = math.floor(y / CELL_SIZE) + 1
+   return column, row
+end
+```
+
+When using the function as an expression, lua accommodates for different number of variables.
+
+With less variables than necessary, the language provides the values in order.
+
+```lua
+c = pointToTile(100, 50)
+print(c) -- 11
+```
+
+With more variables than necessary, the language adds `nil` to superfluous ones.
+
+```lua
+c, r, extra = pointToTile(100, 50)
+print(extra) -- nil
+```
+
+#### Variable arguments
+
+Functions can be _variadic_ by specifying the parameters with three dots `...`. This is a _vararg expression_, and behaves like a function returning multiple inputs (the inputs received when calling the function).
+
+```lua
+function printAll(...)
+   s1, s2, s3 = ...
+   print(s1) -- "something"
+   print(s2) -- "something new"
+   print(s3) -- nil
+end
+
+printAll("something", "something new")
+```
+
+By wrapping the expression in curly brackets, you essentially create a sequence containing the arguments.
+
+```lua
+function printAll(...)
+   all = {...}
+   for i, v in ipairs(all) do
+      print(v)
+   end
+end
+```

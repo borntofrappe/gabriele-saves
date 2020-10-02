@@ -1,6 +1,6 @@
-## Lessons learned
+## Lua & Love2D
 
-What follows is a thing or two I learned from developing games with lua and Love2D.
+Lessons learned while developing games with the game engine Love2D.
 
 ### local
 
@@ -560,3 +560,260 @@ s = "hello, world"
 -- print(string.upper(s))
 print(s:upper())
 ```
+
+### Tables
+
+Tables are the only data structure provided by the lua language.
+
+One way to create tables is by using curly braces `{}` and then assigning values with square brackets or dot notation.
+
+```lua
+t = {}
+t["age"] = 28
+t.name = "Timothy"
+
+print(t.name) -- "Timothy"
+```
+
+#### Indices
+
+Both strings and numbers are valid values for key.
+
+```lua
+t = {}
+t["age"] = 28
+t[1] = 12
+
+print(t[1]) -- 12
+```
+
+_Be warned_: string and numbers with the same value do represent a different key.
+
+```lua
+t = {}
+t[0] = 0
+t["0"] = "zero"
+```
+
+The same is not true for integers and floats.
+
+```lua
+t = {}
+t[0] = 0
+t[0.0] = "zero point zero"
+
+print(t[0]) -- "zero point zero"
+print(t[0.0]) -- "zero point zero"
+```
+
+#### Constructors
+
+As mentioned earlier, one way to build tables is by assigning key value pairs after initializing a variable with curly braces `{}`. Alternatively, you can build tables with the following ways:
+
+- by specifying the values as a list of comma-separated values
+
+  ```lua
+  numbers = {1, 10, 15, 8, 5}
+  ```
+
+  Here, the individual items are accessed by index. Always starting with `1`.
+
+  ```lua
+  numbers = {1, 10, 15, 8, 5}
+  print(numbers[2]) -- 10
+  ```
+
+- by specifying key-value pairs in between the set of braces
+
+  ```lua
+  person = {
+     name = 'Timothy',
+     age = 28
+  }
+  ```
+
+  Consider that the key can also be a string, wrapped in square brackets `[]`
+
+  ```lua
+  person = {
+     ["name"] = 'Timothy',
+     ["age"] = 28
+  }
+  ```
+
+  Here, the individual items are accessed through their matching key.
+
+  ```lua
+  person = {
+     ["name"] = 'Timothy',
+     ["age"] = 28
+  }
+  print(person["age"]) -- 28
+  print(person.age) -- 28
+  ```
+
+_Be warned_: you can mix the two approaches, with a list of comma separated values and key-value pairs.
+
+```lua
+person = {
+   ["name"] = 'Timothy',
+   ["age"] = 28,
+   28,
+   2,
+   2020
+}
+```
+
+In this situation however, accessing items by index considers only the comma separated values.
+
+```lua
+person = {
+   ["name"] = 'Timothy',
+   ["age"] = 28,
+   28,
+   2,
+   2020
+}
+
+print(person[1]) -- 28
+```
+
+_Nifty_: trailing commas are valid.
+
+```lua
+person = {
+   ["name"] = 'Timothy',
+   ["age"] = 28,
+}
+```
+
+#### length
+
+The hash symbol `#` returns the length of a table.
+
+```lua
+numbers = {1, 10, 15, 8, 5}
+print(#numbers) -- 5
+```
+
+This measure is however reliable only with _sequences_, that is tables without `nil` values. In this instance, the suggestion is to use a key in the table dedicated to describe its length.
+
+#### Traversal
+
+Lua provides two iterators to loop through a table
+
+- `pairs` for key-value pairs
+
+  ```lua
+  person = {
+     ["name"] = 'Timothy',
+     ["age"] = 28,
+  }
+  for k, v in pairs(person) do
+     print(k .. ": " .. v)
+  end
+
+  -- "name: Timothy"
+  -- "age: 28"
+  ```
+
+  _Be warned_: `pairs` doesn't guarantee that the key value pairs are considered in the order in which they are initialized in the table.
+
+  ```lua
+  person = {
+     ["name"] = 'Timothy',
+     ["age"] = 28,
+     ["zet"] = 29,
+  }
+  for k, v in pairs(person) do
+     print(k .. ": " .. v)
+  end
+
+  -- "name: Timothy"
+  -- "zet: 29"
+  -- "age: 28"
+  ```
+
+- `ipairs` for comma separated lists
+
+  ```lua
+  numbers = {1, 10, 15}
+
+  for i, v in ipairs(numbers) do
+     print(i .. ": " .. v)
+  end
+
+  -- 1: 1
+  -- 2: 10
+  -- 3: 15
+  ```
+
+  The order is here guaranteed.
+
+  _Nifty_: with sequences a numerical `for` loop is just as effective
+
+  ```lua
+  numbers = {1, 10, 15}
+
+  for i = 1, #numbers do
+     print(i .. ": " .. numbers[i])
+  end
+  ```
+
+#### table library
+
+Similarly with strings and the string library, the table library provides useful functions to work with tables.
+
+- `table.insert(t, v)`
+
+  The function adds the value at the end of the table.
+
+  ```lua
+  numbers = {1, 10, 15}
+
+  table.insert(numbers, 7)
+  print(numbers[#numbers]) -- 7
+  ```
+
+  By specifying three arguments, it is also possible to detail _where_ to position the element in the table: `table.insert(t, i, v)`
+
+  ```lua
+  numbers = {1, 10, 15}
+
+  table.insert(numbers, 1, 7)
+  print(numbers[1]) -- 7
+  ```
+
+- `table.remove(t)`
+
+  The function removes the last element the element.
+
+  ```lua
+  numbers = {1, 10, 15}
+
+  print(#numbers) -- 3
+  table.remove(numbers)
+  print(#numbers) -- 2
+  print(numbers[#numbers]) -- 10
+  ```
+
+  Similarly to `insert`, it is possible to specify an additional argument to describe a different element: `table.remove(t, i)`
+
+  ```lua
+  numbers = {1, 10, 15}
+
+  print(#numbers) -- 3
+  table.remove(numbers)
+  print(#numbers) -- 2
+  print(numbers[#numbers]) -- 15
+  ```
+
+  _Nifty_: the function also returns the element being removed.
+
+  ```lua
+  numbers = {1, 10, 15}
+
+  num = table.remove(numbers, 1)
+  print(#numbers) -- 2
+  print(num) -- 1
+  ```

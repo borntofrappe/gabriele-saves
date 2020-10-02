@@ -1,44 +1,8 @@
-## Lua & Love2D
-
-Lessons learned while developing games with the game engine Love2D.
-
-### local
-
-Using the `local` keyword it's possible to enclose variables in the block in which they are created. This is handy in the moment you create functions or tables for different files.
-
-```lua
-function doSomething()
-   local x = 12
-end
-```
-
-In this trivial example, even if you initialize a variable `x` before using the function `x` will always refer to `12` in the body of the function.
-
-A block refers the body of a function, if statement, loop. Whatsmore, you can delimit a block specifically using the `do ... end` syntax.
-
-```lua
-do
-   local x = 2
-end
-```
-
-### pairs v ipairs
-
-To iterate through a table, lua offers the `pairs` and `ipairs` functions.
-
-The difference emerges when the table has keys
-
-- pairs returns key-value pairs
-
-- ipairs returns index-value pairs
-
-The latter is mostly for numeric tables, it follows the index-based order and it ignores non-numeric keys.
-
 ## Programming in Lua
 
-The first edition of _Programming in Lua_ is [available online](https://www.lua.org/pil/contents0.html). The [official website](https://www.lua.org/) also provides a [demo environment](https://www.lua.org/cgi-bin/demo). That being said, what follows is a rationalization of the book in its fourth edition.
+The first edition of _Programming in Lua_ is [available online](https://www.lua.org/pil/contents.html). The [official website](https://www.lua.org/) also provides a [demo environment](https://www.lua.org/cgi-bin/demo). That being said, what follows is a rationalization of the book in its fourth edition.
 
-### Getting started
+### Basics
 
 #### Chunks
 
@@ -233,7 +197,7 @@ print(type(name)) -- nil
 print(type(type(name))) -- string
 ```
 
-### Numbers
+#### Numbers
 
 As hinted above, but only with **Lua 5.3**, numerals have two representations:
 
@@ -263,7 +227,7 @@ print(math.type(3)) -- integer
 print(math.type(3.0)) -- float
 ```
 
-#### Arithmetic operators
+##### Arithmetic operators
 
 Lua offers familiar arithmetic operators.
 
@@ -301,7 +265,7 @@ In terms of type:
 
 - operations different from division will return an integer **only if** both operands are integers. Else, they will return a float (this by coercing the integer to a float before the operation).
 
-#### Relational operators
+##### Relational operators
 
 `<`, `>`, `<=`, `=>`, `==`, `~=`
 
@@ -311,7 +275,7 @@ These always produce a boolean. Comparison happens by type.
 print(3 == "3") -- false
 ```
 
-#### Math library
+##### Math library
 
 The standard `math` library comes with a set of functions.
 
@@ -349,7 +313,7 @@ To round numbers Lua offers three alternatives:
 print(math.modf(3.25)) -- 3	0.25
 ```
 
-#### Conversion
+##### Conversion
 
 From int to float, add `0.0`.
 
@@ -363,11 +327,11 @@ print(math.tointeger(3.0)) -- 3
 
 _Nifty_: `math.tointeger` returns `nil` if the conversion is not possible. This means you can use the function to test if a conversion is possible.
 
-#### Precedence
+##### Precedence
 
 Lua follows an order, but you can change the default through parentheses `()`
 
-### Strings
+#### Strings
 
 String represent text. They are wrapped between quotes, single or double, and are immutable in value.
 
@@ -428,7 +392,7 @@ text = [=[
 
 Add one or more equal signs between the two brackets, and lua will not close the block until a matching pattern is found for the closing set.
 
-#### Coercion
+##### Coercion
 
 Lua tries to automatically convert between numbers and strings and vice versa
 
@@ -457,7 +421,7 @@ _Be warned_: order operators never coerce their arguments, and lua raises an err
 "4" < 12 -- errors out
 ```
 
-#### string library
+##### string library
 
 String manipulation comes from the `string` library.
 
@@ -551,7 +515,7 @@ y = "goodbye"
 print(string.gsub(s, x, y)) -- hello, world	0
 ```
 
-#### colon operator
+##### colon operator
 
 The colon operator `:` allows to use the functions from a library without specifying the library itself. This is discussed in more details in the section covering object-oriented programming.
 
@@ -561,7 +525,7 @@ s = "hello, world"
 print(s:upper())
 ```
 
-### Tables
+#### Tables
 
 Tables are the only data structure provided by the lua language.
 
@@ -575,7 +539,7 @@ t.name = "Timothy"
 print(t.name) -- "Timothy"
 ```
 
-#### Indices
+##### Indices
 
 Both strings and numbers are valid values for key.
 
@@ -606,7 +570,7 @@ print(t[0]) -- "zero point zero"
 print(t[0.0]) -- "zero point zero"
 ```
 
-#### Constructors
+##### Constructors
 
 As mentioned earlier, one way to build tables is by assigning key value pairs after initializing a variable with curly braces `{}`. Alternatively, you can build tables with the following ways:
 
@@ -687,7 +651,7 @@ person = {
 }
 ```
 
-#### length
+##### length
 
 The hash symbol `#` returns the length of a table.
 
@@ -698,7 +662,7 @@ print(#numbers) -- 5
 
 This measure is however reliable only with _sequences_, that is tables without `nil` values. In this instance, the suggestion is to use a key in the table dedicated to describe its length.
 
-#### Traversal
+##### Traversal
 
 Lua provides two iterators to loop through a table
 
@@ -760,7 +724,7 @@ Lua provides two iterators to loop through a table
   end
   ```
 
-#### table library
+##### table library
 
 Similarly with strings and the string library, the table library provides useful functions to work with tables.
 
@@ -818,7 +782,7 @@ Similarly with strings and the string library, the table library provides useful
   print(num) -- 1
   ```
 
-### Functions
+#### Functions
 
 Reusable chunks of code:
 
@@ -879,7 +843,7 @@ end
 printSomething() -- nil
 ```
 
-#### Multiple returns
+##### Multiple returns
 
 Lua functions are able to return more than a single value.
 
@@ -908,7 +872,7 @@ c, r, extra = pointToTile(100, 50)
 print(extra) -- nil
 ```
 
-#### Variable arguments
+##### Variable arguments
 
 Functions can be _variadic_ by specifying the parameters with three dots `...`. This is a _vararg expression_, and behaves like a function returning multiple inputs (the inputs received when calling the function).
 
@@ -933,3 +897,89 @@ function printAll(...)
    end
 end
 ```
+
+#### local variables
+
+By default, variables are global. Through the `local` keyword however, it's possible to enclose variables in the block in which they are created.
+
+```lua
+function doSomething()
+   local x = 12
+end
+```
+
+In this trivial example, even if you initialize a variable `x` before using the function `x` will always refer to `12` in the body of the function.
+
+A block refers the body of a function, if statement, loop, or to the entire script. Whatsmore, you can delimit a block specifically using the `do ... end` syntax.
+
+```lua
+do
+   local x = 2
+end
+```
+
+#### Control structures
+
+- conditional execution
+
+  ```lua
+  if condition then
+     -- do something
+  elseif condition2 then
+     -- do something
+  else
+     -- default
+  end
+  ```
+
+- iteration
+
+  A while loop to repeat code until a condition is true
+
+  ```lua
+  i = 0
+  while i < 5 do
+     print("Hello")
+     i = i + 1
+  end
+  ```
+
+  A repeat loop to execute the code at least once. _Be warned_: local variables are accessible in the `until` condition.
+
+  ```lua
+  i = 5
+  repeat
+     print("Hello")
+  until i < 5
+  ```
+
+  A for loop to execute a given number of times
+
+  ```lua
+  for i = 1, 5, 2 do
+     print(i) -- 1, 3, 5
+  end
+  ```
+
+  A for loop to iterate through a table. This using the mentioned `pairs` and `ipairs`.
+
+  ```lua
+  for i, v in ipairs({1, 3, 5}) do
+     print(v) -- 1, 3, 5
+  end
+  ```
+
+- break, return and goto
+
+  `break` allows to exit a loop
+
+  `return` terminates the function and is the last instruction executed in the function's body
+
+  `goto` moves the execution of the script to a prescribed label
+
+  ```lua
+  goto step1
+  print("Skip this line")
+  ::step1::
+  print("Print this message")
+  ```

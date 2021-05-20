@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Finance Logger</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header>
+      <h1>Finance Logger</h1>
+    </header>
+
+    <main>
+      <!-- list here -->
+      <article>
+        <h2>Payment</h2>
+        <p>mario is owned $200 plumbing work</p>
+      </article>
+    </main>
+
+    <form>
+      <label>
+        <span>Type</span>
+        <select name="type">
+          <option value="invoice">invoice</option>
+          <option value="payment">payment</option>
+        </select>
+      </label>
+
+      <label>
+        <span>To / From</span>
+        <input required name="name" type="text" placeholder="Mario" />
+      </label>
+
+      <label>
+        <span>Details</span>
+        <input name="details" type="text" placeholder="Plumbing work" />
+      </label>
+
+      <label>
+        <span>Amount ($)</span>
+        <input required name="amount" type="number" placeholder="85" />
+      </label>
+
+      <button>Add</button>
+    </form>
+
+    <script src="script.js"></script>
+  </body>
+</html>

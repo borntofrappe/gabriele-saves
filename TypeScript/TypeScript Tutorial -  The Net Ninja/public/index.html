@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Finance Logger</title>
     <link rel="stylesheet" href="style.css" />
+    <link rel="icon" href="icon.svg" />
   </head>
   <body>
     <header>
@@ -13,17 +14,13 @@
     </header>
 
     <main>
-      <!-- list here -->
-      <article>
-        <h2>Payment</h2>
-        <p>mario is owned $200 plumbing work</p>
-      </article>
+      <!-- payments and invoices here -->
     </main>
 
     <form>
       <label>
         <span>Type</span>
-        <select name="type">
+        <select name="type" id="type">
           <option value="invoice">invoice</option>
           <option value="payment">payment</option>
         </select>
@@ -31,22 +28,33 @@
 
       <label>
         <span>To / From</span>
-        <input required name="name" type="text" placeholder="Mario" />
+        <input required name="name" id="name" type="text" placeholder="Mario" />
       </label>
 
       <label>
         <span>Details</span>
-        <input name="details" type="text" placeholder="Plumbing work" />
+        <input
+          name="details"
+          id="details"
+          type="text"
+          placeholder="Plumbing work"
+        />
       </label>
 
       <label>
         <span>Amount ($)</span>
-        <input required name="amount" type="number" placeholder="85" />
+        <input
+          required
+          name="amount"
+          id="amount"
+          type="number"
+          placeholder="85"
+        />
       </label>
 
       <button>Add</button>
     </form>
 
-    <script src="script.js"></script>
+    <script type="module" src="script.js"></script>
   </body>
 </html>

@@ -10,12 +10,13 @@ form.addEventListener('submit', (e) => {
     const details = form.querySelector('#details');
     const main = document.querySelector('main');
     const articles = new ArticleTemplate(main);
+    const values = [name.value, amount.valueAsNumber, details.value];
     let doc;
     if (type.value === 'payment') {
-        doc = new Payment(name.value, amount.valueAsNumber, details.value);
+        doc = new Payment(...values);
     }
     else {
-        doc = new Invoice(name.value, amount.valueAsNumber, details.value);
+        doc = new Invoice(...values);
     }
     articles.render(doc, type.value);
 });

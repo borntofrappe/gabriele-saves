@@ -15,11 +15,13 @@ form.addEventListener('submit', (e: Event) => {
   const main = document.querySelector('main')!;
   const articles = new ArticleTemplate(main);
 
+  const values: [string, number, string] = [name.value, amount.valueAsNumber, details.value]
+
   let doc: HasFormatter;
   if(type.value === 'payment') {
-    doc = new Payment(name.value, amount.valueAsNumber, details.value);
+    doc = new Payment(...values);
   } else {
-    doc = new Invoice(name.value, amount.valueAsNumber, details.value);
+    doc = new Invoice(...values);
   }
 
   articles.render(doc, type.value);

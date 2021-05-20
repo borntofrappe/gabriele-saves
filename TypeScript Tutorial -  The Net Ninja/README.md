@@ -3,10 +3,14 @@ _Please note:_ the demo analysed in the project, 'Finance Logger', is recreated 
 _Please also note:_ in order to bypass a CORS restriction, it is necessary to set up a server. The `live-server` module provides a quick way to set up the environment on local host.
 
 ```bash
+# compile
+tsc
+
+# set up a live server
 live-server
 ```
 
-# [TypeScript Tutorial](https://www.youtube.com/playlist?list=PL4cUxeGkcC9gUgr39Q_yD6v-bSyMwKPUI)
+# [TypeScript Tutorial - The Net Ninja](https://www.youtube.com/playlist?list=PL4cUxeGkcC9gUgr39Q_yD6v-bSyMwKPUI)
 
 TypeScript works as a superset of JavaScript, extending the language with additional features.
 
@@ -175,7 +179,7 @@ let age: number;
 let isOnline: boolean;
 ```
 
-TypeScript then enforces the same type checking explained in the previous sections.
+TypeScript then enforces the same type checking explained in the previous section.
 
 For arrays include square brackets after the type of values included in the array.
 
@@ -183,7 +187,7 @@ For arrays include square brackets after the type of values included in the arra
 let numbers: number[];
 ```
 
-Note that in the snippet `numbers` is still undefined. TypeScript just checks the type, and doesn't initialize the variable with an empty array. The following would raise an error when the code runs, but not when TypeScript compiles the code.
+Note that in the snippet `numbers` is still undefined. TypeScript just checks the type and doesn't initialize the variable with an empty array. The following would raise an error when the code runs, but not when TypeScript compiles the code.
 
 ```ts
 let numbers: number[];
@@ -197,7 +201,7 @@ let numbers: number[] = [];
 numbers.push(32); // [32]
 ```
 
-It is possible to describe multiple types with the pipe operator `|`
+It is possible to describe multiple types with the pipe operator `|`. In terms of TypeScript, this is called _union_.
 
 ```ts
 let mix: (string | number)[] = [];
@@ -206,7 +210,7 @@ mix.push(23);
 mix.push(true); // Argument of type 'boolean' is not assignable to parameter of type 'string | number'
 ```
 
-In this instance the array is allowed to store string and number values.
+In the snippet the array `mix` is allowed to store string and number values.
 
 The operator works with arrays, but also individual variables.
 
@@ -243,7 +247,7 @@ Introduced in the context of the parameter of a function, the `any` type allows 
 let age: any;
 ```
 
-Note that, while useful in some cases, the concept goes againstthe purpose of having a strict type system. Use with caution.
+Note that, while useful in some cases, the concept goes against the purpose of having a strict type system. Use with caution.
 
 <!-- prettier-ignore -->
 ```ts
@@ -289,7 +293,7 @@ Setting `rootDir` just prevents the compiler from creating a folder.
 
 Withtout this instruction, a file stored under `src/script.ts` would be compiled to `outDir/src/script.js`.
 
-**Update**: at the time of writing, it seems TypeScript compiles files outside of the `rootDir` folder, but also raises an error in the console.
+**Update**: it seems TypeScript compiles files outside of the `rootDir` folder, but also raises an error in the console.
 
 ```bash
 # error TS6059: File '...' is not under 'rootDir'
@@ -336,7 +340,7 @@ saySomething('new', true); // new!!!
 saySomething('normal'); // normal
 ```
 
-Note that calling the function without the optional argument results in the value to be `undefined`. You can specify a default value, but this is already possible with JavaScript.
+Note that calling the function without optional arguments results in the value to be `undefined`. You can specify a default value, but this is already possible with JavaScript.
 
 ```ts
 const saySomething = (something: string, isExclamation: boolean = false) => {
@@ -344,7 +348,7 @@ const saySomething = (something: string, isExclamation: boolean = false) => {
 };
 ```
 
-As noted in the first snippet of this section, the TypeScript notes the type of the value returned by a function, which is `void` if nothing is returned. That being said, TypeScript infers the type similarly to when variables are first initialized.
+As noted in the first snippet of this section, TypeScript notes the type of the value returned by a function. If nothing is returned, TypeScript leans on the `void` keyword. If something is returned, TypeScript infers the type similarly to when variables are first initialized.
 
 ```ts
 const adder = (a: number, b: number, c: number = 0) => {
@@ -354,7 +358,7 @@ const adder = (a: number, b: number, c: number = 0) => {
 const value = adder(10, 5); // const value: number
 ```
 
-You can explicitly set the return type after the arguments.
+You can explicitly set the return type adding a colon after the parenthesis describing the arguments.
 
 ```ts
 const adder = (a: number, b: number, c: number = 0): number => {
@@ -415,7 +419,7 @@ const form = document.querySelector('form'); // const form: HTMLFormElement | nu
 form.addEventListener('submit', handleSubmit); // Object is possibly 'null'
 ```
 
-To fix this include the code in a conditional
+To fix this include the code in a conditional.
 
 ```ts
 if (form) {
@@ -423,7 +427,7 @@ if (form) {
 }
 ```
 
-Or, benefit from the exclamation mark `!` operator.
+Or, include the exclamation mark `!` operator after the `querySelector` method.
 
 ```ts
 const form = document.querySelector('form')!;
@@ -448,7 +452,7 @@ You can cast a specific type following with the `as` syntax.
 const form = document.querySelector('.record')! as HTMLFormElement; // const form: HTMLFormElement
 ```
 
-When working with events, TypeScript provides a specific type for the event.
+When working with events, TypeScript provides a specific type for the event, `Event` with a capital initial.
 
 ```ts
 form.addEventListener('submit', (e: Event) => {
@@ -500,9 +504,9 @@ Methods receive a similar treatment with types.
 
 ```ts
 class Profile {
-  credential() {
-    return `${this.name}, age ${this.age}`;
-  } // (method) Profile.credential(): string
+  greeting() {
+    return `Hello, I'm ${this.name}!`;
+  } // (method) Profile.greeting(): string
 }
 ```
 
@@ -522,7 +526,6 @@ TypeScript enforces types like with the mentioned strings, numbers and so forth.
 
 ```ts
 profiles.push('hello'); // Argument of type 'string' is not assignable to parameter of type 'Profile'
-profiles.push(p1);
 ```
 
 ## Public, private, readonly
@@ -530,6 +533,18 @@ profiles.push(p1);
 In the context of classes you are able to modify access to the different variables.
 
 Properties are `public` by default. You can access and reassign their value.
+
+```ts
+class Profile {
+  name: string;
+  age: number;
+
+  // ...
+}
+
+const p1 = new Profile('Timothy', 32);
+p1.age = 33; // p1.age is now 33
+```
 
 With the `private` keyword it is no longer possible to access or modify the property from outside the scope of the object.
 
@@ -541,7 +556,8 @@ class Profile {
   // ...
 }
 
-p1.age = 12; // Property 'age' is private and only accessible within class 'Profile'
+const p1 = new Profile('Timothy', 32);
+p1.age = 33; // Property 'age' is private and only accessible within class 'Profile'
 ```
 
 It is still possible from within the class.
@@ -552,6 +568,9 @@ class Profile {
     this.age = this.age + 1;
   }
 }
+
+const p1 = new Profile('Timothy', 32);
+p1.celebrateBirthday(); // p1.age is now 33
 ```
 
 With the `readonly` keyword you gain access to the value, but cannot modify the original measure.
@@ -577,7 +596,7 @@ class Profile {
 
 ## Modules
 
-With ES6 you can split the logic of the project in multiple `.ts` file.
+With modern environments and ES6 syntax you can split the logic of the project in multiple `.ts` files.
 
 Update the config file.
 
@@ -600,13 +619,13 @@ Include the script as a module in the markup.
 
 With this setup you can then create different files.
 
-Export the desired variables, methods, classes from the individual files.
+Export the desired variables, methods, classes from the different files.
 
 ```ts
 export class Profile {}
 ```
 
-Import as needed (note that you import a JavaScript file).
+Import as needed. Note that you import a JavaScript file.
 
 ```ts
 import { Profile } from '/Profile.js';
@@ -614,17 +633,19 @@ import { Profile } from '/Profile.js';
 
 A couple of issues with this approach:
 
-- it considers only the most recent ecosystem, with `es6` and the module definition of `es2015`
+- not all browser support the `<script>` element of type `module`, nor the `import` `export` syntax used by ES6
 
 - there are multiple JavaScript files and multiple requests
 
-A build tool like webpack is here to target a broader environment and compile the code in a single file.
+A build tool like webpack is here able to target a broader environment and compile the code in a single file.
 
 ## Interface
 
-Interfaces work to enforce a type of structure on classes or objects.
+Interfaces work to enforce a type of structure following the `interface` keyword.
 
 ### Objects
+
+For objects, interfaces describe the accepted key-value pairs and associated types.
 
 ```ts
 interface IsProfile {
@@ -634,7 +655,7 @@ interface IsProfile {
 }
 ```
 
-Once initialized use the interface as a type.
+Once an object is initialized with the interface, TypeScript raises an error in the moment the object doesn't respect the structure.
 
 ```ts
 let me: IsProfile;
@@ -646,7 +667,7 @@ TypeScript raises an error until the variable has the desired fields. Moreover,
 me = {}; // Type '{}' is missing the following properties from type 'IsProfile': name, age, celebrateBirthday
 ```
 
-When used as a type, for instance in a function, the code editor is able to highlight the available variables.
+The additional work of creating an interface ensures that a variable has a certain sequence of key value pairs and set types. This also helps the code editor to highlight the available properties. Create a function with a parameter using the interface and in the body of the function the editor will show the associated fields.
 
 ```ts
 function introduceProfile(profile: IsProfile) {
@@ -662,13 +683,15 @@ introduceProfile(); // An argument for 'profile' was not provided.
 
 ### Classes
 
+An interface for a class works similarly to objects, describing a desired structure.
+
 ```ts
 interface HasFormatter {
   format(): string;
 }
 ```
 
-Ensure that a class follows the interface.
+TypeScript then ensures that a class follows the interface.
 
 ```ts
 class Payment implements HasGreeting {} // Class 'Payment' incorrectly implements interface 'HasFormatter'.
@@ -695,42 +718,153 @@ let docs: HasFormatter[];
 
 ## HTML Template
 
+`ArticleTemplate` works as a class to render HTML elements in the DOM. The idea, considering the demo application, is to take values from the `<form>` element and add an `<article>` element in the input container.
+
+The class is initialized with the container. This is made into a `private` variable since the element is useful only in the boundaries of the class.
+
 ```ts
 class ArticleTemplate {
-  constructor(private container: HTMLDivElement) {}
+  constructor(private container: HTMLElement) {}
 }
 ```
+
+The `render` method then receives an instance of the `Invoice` or `Payment` class. This is an `item` with the interface described earlier to guarantee that the variable has a `format` function.
 
 ```ts
 render(item: HasFormatter, heading: string) {
-  const article = document.createElement('article');
-  const h2 = document.createElement('h2');
-  h2.textContent = heading;
-
-  article.append(h2)
-
-  const p = document.createElement('p');
-  p.textContent = item.format();
-
-  article.append(p)
-  this.container.append(article);
 }
 ```
 
+From these inputs the function creates the following markup.
+
+```html
+<article>
+  <h2>{invoice || payment}</h2>
+  <p>{format()}</p>
+</article>
+```
+
+Note that when creating element with the `createElement` syntax, TypeScript gains knowledge of the associated properties and methods.
+
+In `script.ts`, the script imports the class and create an instance when the form is ultimately submitted.
+
 ```ts
-const div = document.querySelector('div')!;
-const articles = new ArticleTemplate(div);
+const main = document.querySelector('main');
+const articles = new ArticleTemplate(main);
+```
 
-// doc
+Once the instance of `Payment` or `Invoice` is created, the class calls the `render` method to show the matching values.
 
+```ts
 articles.render(doc, type.value);
 ```
 
 ## Generics
 
+_Please note:_ the feature is beyond the scope of the demo, but is still an important part of TypeScript.
+
+Generics are a tad difficult to explain, but a few examples might help.
+
+### Types
+
+Consider a function which takes as input an object and returns an object which extends the input an additional field.
+
+```ts
+function getObjectWithId(obj: object) {
+  return { ...obj, id: Math.random() };
+}
+```
+
+In this instance TypeScript doesn't know the structure of the object past the `id` key. Try to access the name and, even if existing, the compiler will raise an error.
+
+```ts
+const timothy = getObjectWithId({
+  name: 'Timothy',
+  age: 32,
+});
+
+console.log(timothy.name); // Property 'name' does not exist on type '{ id: number; }'
+```
+
+To fix this, you _capture_ the type with a generic. Between the name of the function and the arguments, include a label wrapped between the less than sign and the greater than sign.
+
+```ts
+function getObjectWithId<T>(obj: object) {}
+```
+
+You can then include the type in the parameter, and in place of the type of `object`.
+
+```ts
+function getObjectWithId<T>(obj: T) {}
+```
+
+This works to remove the error, but any input type would work. To have TypScript enforce an object, explicitly set its type by extending the input.
+
+```ts
+function getObjectWithId<T extends object>(obj: object) {}
+```
+
+You can extend a type or a more specific structure.
+
+```ts
+function getObjectWithId<T extends { name: string; age: number }>(
+  obj: object
+) {}
+```
+
+In this instance TypeScript will raise an error until the input proves to be an object with a string for the `name` and a number for the `age` field.
+
+### Interfaces
+
+Generics prove to be useful in making an interface accept a general type of input.
+
+```ts
+interface Resource<T> {
+  id: number;
+  name: string;
+  data: T;
+}
+```
+
+In this instance any variable using the interface needs to have a number for the `id` and a string for the `name` field. The type of the `data` field is finally specified when using the interface. Consider for instance `book` as a resource with an object type.
+
+```ts
+const book: Resource<object> = {
+  id: 12,
+  name: 'The hobbit',
+  data: { pages: 123 },
+};
+```
+
+In the opening and closing bracket define the input type.
+
+```ts
+const book: Resource<{ pages: number }> = {
+  id: 12,
+  name: 'The hobbit',
+  data: { pages: 123 },
+};
+```
+
 ## Enums
 
-Store a set of constant with a numeric value. The concept helps to map constants instead of using an integer value.
+_Please note:_ the feature is beyond the scope of the demo, but is still an important part of TypeScript.
+
+Enums allow to store a set of constant with a numeric value. The concept helps to map constants instead of using an integer value.
+
+Consider adding a `resourceType` with a value of `0` for books, `1` for authors and so forth.
+
+```ts
+const book1: object = {
+  resourceType: 0,
+};
+
+const author1: object = {
+  resourceType: 1,
+};
+```
+
+The feature works to simplify this solution by instead referring to one of the values following the `enum` keyword.
 
 ```ts
 enum ResourceType {
@@ -743,7 +877,7 @@ const doc: object = {
 };
 ```
 
-If you were to log the value you'd retrieve the associated number.
+Note that, if you were to log the value, you'd see how the functionality remains the same, and the enum is nothing but a convenience syntax for the integer-based approach.
 
 ```ts
 console.log(doc.resourceType); // 0
@@ -751,20 +885,32 @@ console.log(doc.resourceType); // 0
 
 ## Tuples
 
-Similar to arrays, but creating a sequence of items fixed in place.
-
-You specify a specific set of types ahead of time.
+Tuples are like arrays, but once initialized, they cannot be altered in structure. The types are specified in square brackets `[]` and are fixed in place.
 
 ```ts
 let tuple: [string, number, boolean];
 ```
 
-The collection can only store the defined types and in the specific sequence.
+In this snippet, `tuple` can only store a string, a number and a boolean, in the precise order.
 
 ```ts
 tuple = [false, 32, false]; // Type 'boolean' is not assignable to type 'string'
 ```
 
+In the demo, the concept is useful to have `values` store the different values. Using an array would not work, as the instance of `Payment` or `Invoice` expects a definite sequence of types.
+
 ```ts
-tuple = ['timothy', 32, false];
+const values = [name.value, amount.valueAsNumber, details.value];
+
+doc = new Payment(...values); // A spread argument must either have a tuple type or be passed to a rest parameter
+```
+
+Tuples fix this by specifying the desired types.
+
+```ts
+const values: [string, number, string] = [
+  name.value,
+  amount.valueAsNumber,
+  details.value,
+];
 ```
